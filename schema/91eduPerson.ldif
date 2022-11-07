@@ -1,0 +1,20 @@
+#
+# eduPerson schema (200412)
+#
+dn: cn=schema
+#
+# Attributes
+#
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.1 NAME 'eduPersonAffiliation'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.2 NAME 'eduPersonNickName'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.3 NAME 'eduPersonOrgDN'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.4 NAME 'eduPersonOrgUnitDN'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.5 NAME 'eduPersonPrimaryAffiliation'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.6 NAME 'eduPersonPrincipalName'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.7 NAME 'eduPersonEntitlement'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.8 NAME 'eduPersonPrimaryOrgUnitDN'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'internet2 mace' )
+attributeTypes: ( 1.3.6.1.4.1.5923.1.1.1.9 NAME 'eduPersonScopedAffiliation' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'internet2 mace' )
+#
+# Object Class
+#
+objectClasses: ( 1.3.6.1.4.1.5923.1.1.2 NAME 'eduPerson' AUXILIARY MAY ( eduPersonAffiliation $ eduPersonNickName $ eduPersonOrgDN $ eduPersonOrgUnitDN $ eduPersonPrimaryAffiliation $ eduPersonPrincipalName $ eduPersonEntitlement $eduPersonPrimaryOrgUnitDN $ eduPersonScopedAffiliation) X-ORIGIN 'internet2 mace' )

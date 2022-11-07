@@ -1,0 +1,36 @@
+FROM fedora:37
+LABEL version="2.2.3"
+LABEL description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
+LABEL org.opencontainers.image.authors="Thorsten Ludewig <t.ludewig@gmail.com>"
+
+COPY entrypoint.sh /
+
+# https://kojipkgs.fedoraproject.org//packages/389-ds-base/2.2.3/2.fc37/aarch64/389-ds-base-2.2.3-2.fc37.aarch64.rpm
+
+RUN MACHINE=`uname -m` \
+    && mkdir -p /data \
+    && dnf upgrade -y \
+    && dnf install -y wget \
+    && wget https://kojipkgs.fedoraproject.org//packages/389-ds-base/2.2.3/2.fc37/$MACHINE/389-ds-base-2.2.3-2.fc37.$MACHINE.rpm \
+    && wget https://kojipkgs.fedoraproject.org//packages/389-ds-base/2.2.3/2.fc37/$MACHINE/389-ds-base-libs-2.2.3-2.fc37.$MACHINE.rpm \
+    && wget https://kojipkgs.fedoraproject.org//packages/389-ds-base/2.2.3/2.fc37/$MACHINE/389-ds-base-snmp-2.2.3-2.fc37.$MACHINE.rpm \
+    && wget https://kojipkgs.fedoraproject.org//packages/389-ds-base/2.2.3/2.fc37/noarch/python3-lib389-2.2.3-2.fc37.noarch.rpm \
+    && dnf install -y 389-ds-base-libs-2.2.3-2.fc37.$MACHINE.rpm \
+    && dnf install -y python3-lib389-2.2.3-2.fc37.noarch.rpm \
+    && dnf install -y 389-ds-base-2.2.3-2.fc37.$MACHINE.rpm \
+    && dnf install -y 389-ds-base-snmp-2.2.3-2.fc37.$MACHINE.rpm \
+    && dnf clean all \
+    && rm 389-ds-base* python3-lib389* \
+    && chmod 0755 /entrypoint.sh \
+    && mv /etc/dirsrv /etc/dirsrv.dist \
+    && ln -s /data /etc/dirsrv
+
+HEALTHCHECK --start-period=5m --timeout=5s --interval=5s --retries=2 \
+  CMD /usr/libexec/dirsrv/dscontainer -H
+
+WORKDIR /data
+VOLUME /data
+
+EXPOSE 3389 3636
+
+CMD [ "/entrypoint.sh" ]

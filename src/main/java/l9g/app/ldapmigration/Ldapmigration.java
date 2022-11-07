@@ -78,7 +78,7 @@ public class Ldapmigration
     buildInfo(System.out);
     readConfiguration();
 
-    boolean initialSync = false;
+    boolean initialSync = args.length == 1 && "-i".equals(args[0]);
     
     if ( initialSync )
     {

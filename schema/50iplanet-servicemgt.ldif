@@ -1,0 +1,26 @@
+#
+# Copyright 2003 Sun Microsystems, Inc. All Rights Reserved
+# Patents Pending.Use is subject to license terms.
+# 
+#
+# PROPRIETARY/CONFIDENTIAL. Use of this product is subject to
+# license terms. Copyright (c) 2001 Sun Microsystems, Inc.
+# Some preexisting portions Copyright (c) 2001 Netscape Communications Corp.
+# All rights reserved.
+# 
+# iPlanet service management schema elements.
+# Last modified February 2001
+#
+# 
+dn: cn=schema
+attributeTypes: ( 2.16.840.1.113730.3.1.813 NAME 'iplanetServiceSchema' DESC 'XML schema of a particular service' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15  SINGLE-VALUE X-ORIGIN 'iPlanet Service Management' )
+attributeTypes: ( 2.16.840.1.113730.3.1.814 NAME 'iplanetServiceID' DESC 'reference to an inherited service object' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Service Management' )
+attributeTypes: ( 2.16.840.1.113730.3.1.815 NAME 'iplanetPluginID' DESC 'reference to the service plugin configuration' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Service Management' )
+attributeTypes: ( 2.16.840.1.113730.3.1.816 NAME 'iplanetSMSPriority' DESC 'priority of a service with respect to its siblings' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27  SINGLE-VALUE X-ORIGIN 'iPlanet Service Management' )
+attributeTypes: ( 2.16.840.1.113730.3.1.817 NAME 'iplanetPluginSchema' DESC 'service plugin schema information' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Service Management' )
+attributeTypes: ( 2.16.840.1.113730.3.1.818 NAME 'iplanetKeyValue' DESC 'encoded key values of the services' SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 X-ORIGIN 'iPlanet Service Management' )
+attributeTypes: ( 2.16.840.1.113730.3.1.819 NAME 'iplanetXMLKeyValue' DESC 'service key values in XML format' SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 X-ORIGIN 'iPlanet Service Management' )
+objectClasses: ( 2.16.840.1.113730.3.2.155 NAME 'iplanetService' DESC 'object containing service information' SUP top MUST ou MAY ( labeleduri $ iplanetServiceSchema $ iplanetKeyValue $ iplanetXMLKeyValue $ iplanetPluginSchema $ description ) X-ORIGIN 'iPlanet Service Management' )
+objectClasses: ( 2.16.840.1.113730.3.2.156 NAME 'iplanetOrgService' DESC 'service information specific to organizations' SUP top MUST ou MAY ( iplanetKeyValue $ iplanetXMLKeyValue $ description ) X-ORIGIN 'iPlanet Service Management' )
+objectClasses: ( 2.16.840.1.113730.3.2.157 NAME 'iplanetServiceComponent' DESC 'sub-components of a service' SUP top MUST ou MAY ( iplanetServiceID $ iplanetSMSPriority $ iplanetKeyValue $ iplanetXMLKeyValue $ description ) X-ORIGIN 'iPlanet Service Management' )
+objectClasses: ( 2.16.840.1.113730.3.2.158 NAME 'iplanetServicePlugin' DESC 'Object that stores information specific to service plugins' SUP top MUST ou MAY ( iplanetPluginID $ iplanetKeyValue $ iplanetXMLKeyValue $ iplanetSMSPriority ) X-ORIGIN 'iPlanet Service Management' )

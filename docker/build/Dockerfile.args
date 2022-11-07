@@ -1,0 +1,38 @@
+FROM fedora:37
+LABEL description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
+LABEL maintainer="Thorsten Ludewig <t.ludewig@gmail.com>"
+LABEL org.opencontainers.image.authors="Thorsten Ludewig <t.ludewig@gmail.com>"
+ARG DS_VERSION
+ARG DS_SUBVERSION
+LABEL version=${DS_VERSION}
+
+COPY entrypoint.sh /
+
+RUN MACHINE=`uname -m` \
+    && echo "*** DS_VERSION=$DS_VERSION DS_SUBVERSION=$DS_SUBVERSION" \
+    && mkdir -p /data \
+    && dnf upgrade -y \
+    && dnf install -y wget \
+    && wget https://kojipkgs.fedoraproject.org/packages/389-ds-base/$DS_VERSION/$DS_SUBVERSION/$MACHINE/389-ds-base-$DS_VERSION-$DS_SUBVERSION.$MACHINE.rpm \
+    && wget https://kojipkgs.fedoraproject.org/packages/389-ds-base/$DS_VERSION/$DS_SUBVERSION/$MACHINE/389-ds-base-libs-$DS_VERSION-$DS_SUBVERSION.$MACHINE.rpm \
+    && wget https://kojipkgs.fedoraproject.org/packages/389-ds-base/$DS_VERSION/$DS_SUBVERSION/$MACHINE/389-ds-base-snmp-$DS_VERSION-$DS_SUBVERSION.$MACHINE.rpm \
+    && wget https://kojipkgs.fedoraproject.org/packages/389-ds-base/$DS_VERSION/$DS_SUBVERSION/noarch/python3-lib389-$DS_VERSION-$DS_SUBVERSION.noarch.rpm \
+    && dnf install -y 389-ds-base-libs-$DS_VERSION-$DS_SUBVERSION.$MACHINE.rpm \
+    && dnf install -y python3-lib389-$DS_VERSION-$DS_SUBVERSION.noarch.rpm \
+    && dnf install -y 389-ds-base-$DS_VERSION-$DS_SUBVERSION.$MACHINE.rpm \
+    && dnf install -y 389-ds-base-snmp-$DS_VERSION-$DS_SUBVERSION.$MACHINE.rpm \
+    && dnf clean all \
+    && rm 389-ds-base* python3-lib389* \
+    && chmod 0755 /entrypoint.sh \
+    && mv /etc/dirsrv /etc/dirsrv.dist \
+    && ln -s /data /etc/dirsrv
+
+HEALTHCHECK --start-period=5m --timeout=5s --interval=5s --retries=2 \
+  CMD /usr/libexec/dirsrv/dscontainer -H
+
+WORKDIR /data
+VOLUME /data
+
+EXPOSE 3389 3636
+
+CMD [ "/entrypoint.sh" ]

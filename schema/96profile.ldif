@@ -1,0 +1,29 @@
+## 
+## by D.Kondouroujian@fh-wolfenbuettel.de
+##
+## INSTALL-DIRECTORY/slapd-your_name/config/schema/96profile.ldif
+##
+dn: cn=schema
+#
+# attribute types:
+#
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.11 NAME 'objectclassMap' DESC 'Object class mappings used by a Naming-DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.6 NAME 'authenticationMethod' DESC 'A keystring which identifies the type of authentication method used to contact the DSA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.13 NAME 'serviceCredentialLevel' DESC 'Search scope used by a service of the DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.0 NAME 'defaultServerList' DESC 'Default LDAP server host address used by a DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.10 NAME 'credentialLevel' DESC 'Identifies type of credentials a DUA should use when binding to the LDAP server' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.15 NAME 'serviceAuthenticationMethod' DESC 'Authentication Method used by a service of the DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.7 NAME 'profileTTL' DESC 'Time to live before a client DUA should re-read this configuration profile' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.2 NAME 'preferredServerList' DESC 'Preferred LDAP server host addresses to be used by a DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.12 NAME 'defaultSearchScope' DESC 'Default search scope used by a DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.1 NAME 'defaultSearchBase' DESC 'Default LDAP base DN used by a DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.9 NAME 'attributeMap' DESC ' mappings used by a Naming-DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.14 NAME 'serviceSearchDescriptor' DESC 'LDAP search descriptor list used by Naming-DUA' SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.4 NAME 'bindTimeLimit' DESC 'Maximum time in seconds a DUA should allow for the bind operation to complete' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.5 NAME 'followReferrals' DESC 'Tells DUA if it should follow referrals returned by a DSA search result' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'user defined' )
+attributeTypes: ( 1.3.6.1.4.1.11.1.3.1.1.3 NAME 'searchTimeLimit' DESC 'Maximum time in seconds a DUA should allow for a search to complete' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'user defined' )
+#
+# Objectclasses:
+#
+objectClasses: ( 1.3.6.1.4.1.11.1.3.1.2.4 NAME 'DUAConfigProfile' SUP top STRUCTURAL MUST cn MAY ( attributeMap $ authenticationMethod $ bindTimeLimit $ credentialLevel $ defaultSearchBase $ defaultSearchScope $ defaultServerList $ followReferrals $ objectclassMap $ preferredServerList $ profileTTL $ searchTimeLimit $ serviceAuthenticationMethod $ serviceCredentialLevel $ serviceSearchDescriptor ) X-ORIGIN 'user defined' )
+#

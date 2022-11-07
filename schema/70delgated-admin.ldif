@@ -1,0 +1,109 @@
+#
+# PROPRIETARY/CONFIDENTIAL. Use of this product is subject to
+# license terms. Copyright (c) 2001 Sun Microsystems, Inc.
+# Some preexisting portions Copyright (c) 2001 Netscape Communications Corp.
+# All rights reserved.
+# 
+# iPlanet calendar schema elements.
+# Last modified February 2001
+#
+dn: cn=schema
+objectClasses: ( sunManagedProvider-oid NAME 'sunManagedProvider' DESC
+ 'Standard Object Class' AUXILIARY MAY ( sunAllowBusinessOrgType $ sunBusine
+ ssOrgBase $ sunIncludeServices $ sunExcludeServices $ sunAssignableDomains $
+ sunAllowMultipleDomains $ sunAllowOutsideAdmins $ sunProviderOrgDN ) X-ORIG
+ IN 'JES Delegated Administration' )
+objectClasses: ( sunDelegatedOrganization-oid NAME 'sunDelegatedOrganization' DESC 'Standard Object Class' AUXILIARY MAY ( sunAvailableDomainNames $ sunAvailableServices $ sunOrgType $ sunMaxServices $ sunMaxUsers $ sunNumUsers $ sunMaxGroups $ sunNumGroups $ sunAllowMultipleServices $ sunEnableGAB $ preferredLanguage ) X-ORIGIN 'JES Delegated Administration' )
+objectClasses: ( SunManagedLocation-oid NAME 'sunManagedLocation' DESC
+  'Standard Object Class' AUXILIARY MAY (sunBusinessRoot $ sunResidentialRoo
+ t ) X-ORIGIN 'JES Delegated Administration' )
+objectClasses: ( SunSharedDomain-oid NAME 'sunSharedDomain' DESC 'S
+ tandard Object Class' AUXILIARY X-ORIGIN 'JES Delegated Administration' )
+objectClasses: ( ipGroup-oid NAME 'ipGroup' DESC 'Standard Object Class' 
+ AUXILIARY MAY (inetCos) X-ORIGIN 'JES Delegated Administration' )
+objectClasses: ( sunMailOrganization-oid NAME 'sunMailOrganization' DESC 'Standard Object Class' AUXILIARY MAY ( preferredMailHost $ preferredMailMessageStore ) X-ORIGIN 'JES Delegated Administration' )
+objectClasses: ( inetGroup-oid NAME 'inetGroup' DESC 'Standard Object Class' 
+ AUXILIARY MAY (inetGroupStatus) X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunAllowBusinessOrgType-oid NAME 'sunAllowBusinessOrgType' D
+ ESC 'defines the types of business organizations this provider can create -
+ shared or full' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 15 X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunAllowMultipleDomains-oid NAME 'sunAllowMultipleDomains' D
+ ESC 'indicates if provider admin can create a business org which has multip
+ le domain names - boolean' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466
+ .115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunAllowMultipleServices-oid NAME 'sunAllowMultipleService
+ s' DESC 'May multiple services be assigned to a user - true/false' EQUALITY
+  caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN
+  'JES Delegated Administration' ) 
+attributeTypes: ( sunAllowOutsideAdmins-oid NAME 'sunAllowOutsideAdmins' DES
+ C 'SPA administrator can be only from the SPA business Organization or from 
+ other Organizations as well' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1
+ 466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunProviderOrgDN-oid NAME 'sunProviderOrgDN' DESC 'Business org DN where Provider org people and group container resides' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunAssignableDomains-oid NAME 'sunAssignableDomains' DESC
+  'subset of domain names from the union of sunPreferredDomain and associated
+ Domain attribute values on the sunSharedDomain node' EQUALITY caseIgnoreMat
+ ch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'JES Delegated Administrat
+ ion' )
+attributeTypes: ( sunAvailableServices-oid NAME 'sunAvailableServices' DES
+ C 'list of services available to the business Organization for its users' E
+ QUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'JES 
+ Delegated Administration' )
+attributeTypes: ( sunAvailableDomainNames-oid NAME 'sunAvailableDomainNames' 
+ DESC 'list of domain names (possibly a subset from assignableDomains attrib
+ ute of the Provider Organization) that is available to the Business Organiz
+ ation  for use' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 15 X-ORIGIN 'JES Delegated Administration' ) 
+attributeTypes: ( sunBusinessOrgBase-oid NAME 'sunBusinessOrgBase' DESC 
+ 'where to create the business Organization' EQUALITY caseIgnoreMatch SYNTAX
+  1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunBusinessRoot-oid NAME 'sunBusinessRoot' DESC 'DN
+  of the root entry which contains the business organization tree' EQUALITY c
+ aseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN '
+ JES Delegated Administration' )
+attributeTypes: ( sunEnableGAB-oid NAME 'sunEnableGAB' DESC 'allow access to
+  global address book true/false' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4
+ .1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunExcludeServices-oid NAME 'sunExcludeServices' DESC 'services to be excluded specifically from the services available in the root suffix ' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunIncludeServices-oid NAME 'sunIncludeServices' DESC 
+ 'services to be included specifically from the services available in the ro
+ ot suffix' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-
+ ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( sunMaxGroups-oid NAME 'sunMaxGroups' DESC 'Maximu
+ m no. of groups that can be created in this Business Organization' EQUALIT
+ Y caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGI
+ N 'JES Delegated Administration' )
+attributeTypes: ( sunMaxServices-oid NAME 'sunMaxServices' DESC 'val
+ ue should be given in the format of servicename:number' EQUALITY caseIgnore
+ Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'JES Delegated Administ
+ ration' )
+attributeTypes: ( sunMaxUsers-oid NAME 'sunMaxUsers' DESC 'Maximu
+ m no. of users that can be created in this Business Organization' EQUALITY 
+ caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 
+ 'JES Delegated Administration' )
+attributeTypes: ( sunNumGroups-oid NAME 'sunNumGroups' DESC 'Curre
+ nt no. of groups in the Organization' EQUALITY caseIgnoreMatch SYNTAX 1.3.6
+ .1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administratio
+ n' )
+attributeTypes: ( sunNumUsers-oid NAME 'sunNumUsers' DESC 'Curren
+ t no. of users in the Organization' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1
+ .4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administration'
+  )
+attributeTypes: ( sunOrgType-oid NAME 'sunOrgType' DESC 'Allowed
+ Values are : shared, full' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466
+ .115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Delegated Administration' )
+attributeTypes: ( SunResidentialRoot-oid NAME 'sunResidentialRoot' DESC 
+ 'DN of the root entry which contains the residential tree' EQUALITY caseIgn
+ oreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES De
+ legated Administration' )
+attributeTypes: ( 2.16.840.1.113730.3.1.761 NAME ( 'preferredMailHost' ) DESC 
+ 'Sun ONE Messaging Server defined attribute' SYNTAX 
+ 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun ONE Messaging Server' )
+attributeTypes: ( 2.16.840.1.113730.3.1.762 NAME ( 'preferredMailMessageStore' ) 
+ DESC 'Sun ONE Messaging Server defined attribute' SYNTAX 
+ 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE X-ORIGIN 'Sun ONE Messaging Server' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.588 NAME 'inetgroupstatus' DESC 'Att
+ ribute defining the status of a group' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 
+ SINGLE-VALUE X-ORIGIN ( 'Sun Java System Identity Management' 'user defined'
+  ) )

@@ -1,0 +1,244 @@
+## 
+## Version 2.0.5 (20041111) by Thorsten.Ludewig@fh-wolfenbuettel.de
+## Version 2.1 (20070108) by david.kondouroujian@uni-hildesheim.de
+##
+## INSTALL-DIRECTORY/slapd-your_name/config/schema/97sonia.ldif
+##
+dn: cn=schema
+#
+# attribute types:
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.2 NAME 'soniaCustomerNumber' DESC 'Kunden Nummer' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.3 NAME 'soniaStudentNumber' DESC 'Matrikelnummer' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.4 NAME 'soniaChipCardNumber' DESC 'Chipkarten ID' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.5 NAME 'soniaDoorAccessSystemNumber' DESC 'Tuer Schliesssystem ID' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.6 NAME 'soniaFaculty' DESC 'Fakultaet' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.7 NAME 'soniaEducationalDepartment' DESC 'Fachbereich' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.8 NAME 'soniaInstitute' DESC 'Institut' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.9 NAME 'soniaDepartment' DESC 'Zentrale und Sonstige Einrichtungen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.10 NAME 'soniaLaboratory' DESC 'Labor' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.11 NAME 'soniaCampus' DESC 'Campus/Standort' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.12 NAME 'soniaSalutation' DESC 'Anrede' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.46 NAME 'soniaReceivingAddress' DESC 'Postalische empfaenger addresse (home,semester,work)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.47 NAME 'soniaHomeEqualsSemester' DESC 'heimat und semesteranschrift sind gleich' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.48 NAME 'soniaIsUnregistered' DESC 'ist exmatrikuliert' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.49 NAME 'soniaIsAlumni' DESC 'ist ein ehemaliger' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.50 NAME 'soniaIsDeletionPrepared' DESC 'Zur Loeschung vorbereitet' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.51 NAME 'soniaIsDeleted' DESC 'ist geloescht' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.52 NAME 'soniaAcademicTitle' DESC 'akademischer title' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.53 NAME 'soniaGender' DESC 'Geschlecht' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.54 NAME 'soniaEmailVisibility' DESC 'Email Sichtbarkeit (public,intranet)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.55 NAME 'soniaAddressVisibility' DESC 'Adressen Sichtbarkeit (public,intranet)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.56 NAME 'soniaPhotoVisibility' DESC 'Foto Sichtbarkeit (public,intranet,none)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.66 NAME 'soniaCommonTimestamp' DESC 'Last common changes' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.67 NAME 'soniaPasswordTimestamp' DESC 'last password change' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.69 NAME 'soniaIsLocked' DESC 'ist gesperrt' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.70 NAME 'soniaInitialPlainPassword' DESC 'Passwort nach Initialisierung/Entsperren' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.71 NAME 'soniaIsLockedReason' DESC 'gesperrt weil' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.72 NAME 'soniaIsLockedBy' DESC 'gesperrt von' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.73 NAME 'soniaAnnotation' DESC 'Bemerkung, Notizen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.74 NAME 'soniaIsValidFrom' DESC 'Ist gueltig von' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.75 NAME 'soniaIsValidUntil' DESC 'Ist gueltig bis' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.76 NAME 'soniaBirthday' DESC 'Geburtsdatum' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.77 NAME 'soniaChipcardCounter' DESC 'Anzahl der bisher erhaltenen chipkarten' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.78 NAME 'soniaStatus' DESC 'Allgemeine Status info' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.79 NAME 'soniaIsLockedTimestamp' DESC 'gesperrt seit' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.80 NAME 'soniaUserLog' DESC 'Benutzer Aktions-Log' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.81 NAME 'soniaChipcardBarcode' DESC 'Barcode Bibliotek' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.82 NAME 'soniaChipcardIsLocked' DESC 'Chipkarte ist gesperrt' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.83 NAME 'soniaChipcardIsLockedBy' DESC 'Chipkarte gesperrt von' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.84 NAME 'soniaChipcardIsLockedReason' DESC 'Chipkarte gesperrt weil' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.85 NAME 'soniaChipcardIsLockedTimestamp' DESC 'Chipkarte gesperrt seit' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.86 NAME 'soniaChipcardIsIssued' DESC 'Chipkarte herausgegeben' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.87 NAME 'soniaChipcardIsIssuedBy' DESC 'Chipkarte herausgegeben von' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.88 NAME 'soniaChipcardIsIssuedTimestamp' DESC 'Chipkarte herausgegeben am' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.89 NAME 'soniaPasswordCrypt' DESC 'unix crypt hashed password' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.90 NAME 'soniaPasswordMD5' DESC 'md5 hashed password' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.91 NAME 'soniaPasswordSHA' DESC 'sha hashed password' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.92 NAME 'soniaPasswordLMPW' DESC 'lmpw hashed password' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.93 NAME 'soniaPasswordNTPW' DESC 'ntpw hashed password' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.94 NAME 'soniaChipcardDoorAccessAllowedZones' DESC 'mit der Chipkarte betretbare Bereiche' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.95 NAME 'soniaPasswordRndN16' DESC 'Random 16 Numbers password' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.96 NAME 'soniaVoted' DESC 'Teilgenommene Abstimmungen (DN)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.97 NAME 'soniaIssueId' DESC 'Eindeutige Id fuer Jira' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.98 NAME 'soniaUid' DESC 'Never changing unique id' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.99 NAME 'soniaFileHost' DESC 'Preferred samba server' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.100 NAME 'soniaUserPrefs' DESC 'User preferences for some applications' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.101 NAME 'soniaMailDelegatedAddress' DESC 'Attribute for granting send permissions' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.102 NAME 'soniaVoIPPIN' DESC 'Voice over IP PIN' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.103 NAME 'soniaChipcardHistory' DESC 'vorherige Chipkarten' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.1.104 NAME 'soniaCreateTimestamp' DESC 'analog to standard attribute createTimestamp but will never been reset' EQUALITY generalizedTimeMatch ORDERING generalizedTimeOrderingMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaLocality
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.2 NAME 'soniaLocalityToken' DESC 'abbreviated locality name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.3 NAME 'soniaLocalityNumber' DESC 'sonia locality identification number' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.4 NAME 'soniaLocalityZip' DESC 'sonia locality zip code' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.5 NAME 'soniaLocalityCompany' DESC 'company name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.6 NAME 'soniaLocalityDepartment' DESC 'department name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.7 NAME 'soniaLocalityContactPerson' DESC 'contact person' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.8 NAME 'soniaLocalityMobile' DESC 'mobile phone number' SYNTAX 1.3.6.1.4.1.1466.115.121.1.50 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.9 NAME 'soniaLocalityMail' DESC 'email address' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.10 NAME 'soniaLocalityURI' DESC 'web uri' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.11 NAME 'soniaLocalityCO' DESC 'c/o' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.12 NAME 'soniaLocalityPermissions' DESC 'user defined read permissions' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.13 NAME 'soniaLocalityPager' DESC 'pager number' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.14 NAME 'soniaLocalityNickname' DESC 'nickname' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.2.15 NAME 'soniaLocalityTimestamp' DESC 'last change timestamp' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaDepartment
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.3.2 NAME 'soniaDepartmentNumber'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.3.3 NAME 'soniaDepartmentToken' DESC 'abbreviated department name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.3.4 NAME 'soniaDepartmentSAMail' DESC 'Email fuer das I-Amt' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.4.2 NAME 'soniaIsAccountFormPrinted' DESC 'Benutzerschein ausgedruckt' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.4.3 NAME 'soniaStudentStatus' DESC 'HIS Status (sos.status)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.4.4 NAME 'soniaStudentUnregistrationTime' DESC 'HIS Exmatrikulationsdatum (sos.exmdat)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.4.5 NAME 'soniaStudentUnregistrationReason' DESC 'HIS Exmatrikulationsgrung (sos.exmgrund)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.4.6 NAME 'soniaStudentValidityCode' DESC 'HIS Semestergueltigkeit (sos.res13)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.4.7 NAME 'soniaStudentProgram' DESC 'Studiengang' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+#
+# sequence: in analogy to oracle sequence
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.5.2 NAME 'soniaSequenceMinValue' DESC 'minimum value of the sequence' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.5.3 NAME 'soniaSequenceMaxValue' DESC 'maximum value the sequence can generate' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.5.4 NAME 'soniaSequenceCycleIsEnabled' DESC 'continues to generate values after reaching either its maximum or minimum value' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.5.5 NAME 'soniaSequenceIncrementBy' DESC 'interval between sequence numbers, value can be any positive or negative integer, but it cannot be 0' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.5.6 NAME 'soniaSequenceIsLocked' DESC 'sequence is locked' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.5.7 NAME 'soniaSequenceLastValue' DESC 'last value fetched' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaHost
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.2  NAME 'soniaHostMacAddress' DESC 'MAC-Address of the primary NIC' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.3  NAME 'soniaHostSubdomainName' DESC 'Subdomain' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.4  NAME 'soniaHostDefaultRouter' DESC 'IP address of the default router' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.5  NAME 'soniaHostDirectoryServiceType' DESC 'Type of directory service connection' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.6  NAME 'soniaHostDnsEntryType' DESC 'DNS entry type' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.7  NAME 'soniaHostDnsDomain' DESC 'DNS domain name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.8  NAME 'soniaHostNetgroupEntry' DESC 'name of NIS netgroup entry' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.9  NAME 'soniaHostHardwareType' DESC 'Hardware type and name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.10  NAME 'soniaHostOsType' DESC 'Operating system' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.11  NAME 'soniaHostNetbootType' DESC 'Netboot option' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.12  NAME 'soniaHostIsInstallServer' DESC 'true if host is an install server' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.13  NAME 'soniaHostIsUpdateServer' DESC 'true if host is an update server' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.14  NAME 'soniaHostAquisitionDate' DESC 'Aquisition date of the host' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.6.15  NAME 'soniaHostWarrentyUntil' DESC 'limit of warrenty validity' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaVoting
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.2  NAME 'soniaVotingDescription' DESC 'Beschreibung' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.3  NAME 'soniaVotingStartDate' DESC 'Start Datum' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.4  NAME 'soniaVotingEndDate' DESC 'End Datum' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.5  NAME 'soniaVotingAccessFilter' DESC 'Benutzer die an der Abstimmung teilnehmen duerfen (Ldap-Filter)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.6  NAME 'soniaVotingResultViewer' DESC 'Benutzer die das Ergebniss der Abstimmung sehen duerfen (DN)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.7  NAME 'soniaVotingMinChoice' DESC 'Minimum Stimmen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.8  NAME 'soniaVotingMaxChoice' DESC 'Maximum Stimmen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.9  NAME 'soniaVotingSeat' DESC 'Anzahl Sitze' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.10  NAME 'soniaVotingSucceedCount' DESC 'Anzahl gueltiger Stimmen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.11  NAME 'soniaVotingFailedCount' DESC 'Anzahl ungueltiger Stimmen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.7.12  NAME 'soniaVotingEnabledCount' DESC 'Anzahl der Wahlberaechtigten' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaVotingChoice
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.8.2  NAME 'soniaVotingChoiceDescription' DESC 'Beschreibung' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.8.3  NAME 'soniaVotingChoiceCount' DESC 'Anzahl der Stimmen' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaSync
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.9.2  NAME 'soniaSyncTimestamp' DESC 'Sonia-Sync-Timestamp' SYNTAX 1.3.6.1.4.1.1466.115.121.1.24 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaMailingList
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.10.2  NAME 'soniaMailingListBroadcastType' DESC 'mailinglist send rules' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.10.3  NAME 'soniaMailingListAdministrator' DESC 'mailinglist administrators' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.10.4  NAME 'soniaMailingListJoinabilityFilter' DESC 'mailinglist subscribe filter' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.10.5  NAME 'soniaMailingListAllowedBroadcaster' DESC 'mailinglist allowed broadcaster' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+#
+# soniaEmployeeType
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.11.2 NAME 'soniaEmployeeTypeIsVisible' DESC 'sichtbar' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaPropertyEntry
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.12.2 NAME 'soniaProperty' DESC 'Properties for some applications' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'SONIA' )
+#
+# SoniaVersusOrganization
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.13.2 NAME 'versusLongSchoolName' DESC 'Langform des Schul- oder Organisationsnamens' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.13.3 NAME 'versusShortSchoolName' DESC 'Kurzform des Schul- oder Organisationsnamens' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.13.4 NAME 'versusSchoolAdministrationId' DESC 'Offizielle vom Land Niedersachsen vergebene Nummer der Schule' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.13.5 NAME 'versusAntaresSchoolId' DESC 'Von der Antares Mediendatanbank verwendete ID zur Identiifierung der Organisation' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# SoniaVersusUser
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.14.2 NAME 'versusOrgChangeOrigin' DESC 'Momentane Heimatorganisation des Benutzers' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.14.3 NAME 'versusOrgChangeTarget' DESC 'Organisation zu der der Benutzer wechseln soll' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.14.4 NAME 'versusOrgChangeRequest' DESC 'True, wenn eine Anforderung zum Wechsel der Organisation vorliegt' SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.14.5 NAME 'versusOrgChangeRequestor' DESC 'Die DN des Benutzers, der den Wechsel der Organisation angestossen hat' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaMapping
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.15.2 NAME 'soniaMappingKey' DESC 'Attribute Mapping Schluessel' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.15.3 NAME 'soniaMappingName' DESC 'Attribute Mapping Name' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.15.4 NAME 'soniaMappingDescription' DESC 'Attribute Mapping Beschreibung' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.15.5 NAME 'soniaMappingTypeKey' DESC 'Attribute Type Mapping Schluessel' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# soniaPermissions
+#
+attributeTypes: ( 1.3.6.1.4.1.17379.1.17.2 NAME 'soniaPermissionRead' DESC 'List of object DNs with read permission' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.17.3 NAME 'soniaPermissionWrite' DESC 'List of object DNs with write permission' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.17.4 NAME 'soniaPermissionOwner' DESC 'List of object DNs with owner permission' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.17.5 NAME 'soniaPermissionAdmin' DESC 'List of object DNs with admin permission' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.17.6 NAME 'soniaPermissionMaxAssignments' DESC 'Limits the number of assignments for the object using this object class (soniaPermissions)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'SONIA' )
+attributeTypes: ( 1.3.6.1.4.1.17379.1.17.7 NAME 'soniaPermissionAssignmentFilter' DESC 'Limits with an ldap filter the assignements of the object using this object class (soniaPermissions)' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'SONIA' )
+#
+# objectclasses:
+#
+objectClasses: ( 1.3.6.1.4.1.17379.1.4.1 NAME 'soniaAccount' SUP inetorgperson STRUCTURAL MUST ( employeeType $ soniaUid $ soniaCreateTimestamp ) MAY ( soniaPasswordTimestamp $ soniaIsDeletionPrepared $ soniaIsDeleted 
+ $ soniaIsLocked $ soniaInitialPlainPassword $ soniaIsLockedReason $ soniaIsLockedBy $ soniaAnnotation $ soniaIsValidFrom $ soniaIsValidUntil $ soniaStatus $ soniaIsLockedTimestamp 
+ $ soniaUserLog $ soniaPasswordCrypt $ soniaPasswordMD5 $ soniaPasswordSHA $ soniaPasswordLMPW $ soniaPasswordNTPW $ soniaPasswordRndN16 $ soniaIsAccountFormPrinted $ soniaFileHost 
+ $ soniaUserPrefs $ soniaMailDelegatedAddress $ soniaVoIPPIN ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.1.1 NAME 'soniaPerson' SUP soniaAccount STRUCTURAL MAY ( soniaCommonTimestamp $ soniaAcademicTitle $ soniaAddressVisibility $ soniaCampus 
+ $ soniaChipCardNumber $ soniaCustomerNumber $ soniaDepartment $ soniaDoorAccessSystemNumber $ soniaEducationalDepartment $ soniaEmailVisibility $ soniaFaculty $ soniaGender 
+ $ soniaHomeEqualsSemester $ soniaInstitute $ soniaIsAlumni $ soniaIsUnregistered $ soniaLaboratory $ soniaPhotoVisibility $ soniaReceivingAddress $ soniaSalutation 
+ $ soniaStudentNumber $ soniaBirthday $ soniaChipcardCounter $ soniaChipcardBarcode $ soniaChipcardIsLocked $ soniaChipcardIsLockedBy $ soniaChipcardIsLockedReason 
+ $ soniaChipcardIsLockedTimestamp $ soniaChipcardIsIssued $ soniaChipcardIsIssuedBy $ soniaChipcardIsIssuedTimestamp $ soniaChipcardDoorAccessAllowedZones 
+ $ soniaStudentStatus $ soniaStudentUnregistrationTime $ soniaStudentUnregistrationReason $ soniaStudentValidityCode $ soniaStudentProgram $ soniaVoted $ soniaIssueId $ soniaChipcardHistory ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.2.1 NAME 'soniaLocality' SUP locality STRUCTURAL MUST cn MAY ( c $ facsimileTelephoneNumber $ secretary $ soniaLocalityNumber 
+ $ soniaLocalityToken $ soniaLocalityZip $ telephoneNumber $ soniaLocalityCompany $ soniaLocalityDepartment $ soniaLocalityContactPerson $ soniaLocalityMobile 
+ $ soniaLocalityMail $ soniaLocalityURI $ soniaLocalityCO $ soniaLocalityPermissions $ soniaLocalityPager $ soniaLocalityNickname $ soniaLocalityTimestamp ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.3.1 NAME 'soniaDepartment' SUP top STRUCTURAL MUST cn MAY ( departmentNumber $ description $ manager $ name $ secretary 
+ $ seeAlso $ soniaDepartmentNumber $ soniaDepartmentToken $ soniaDepartmentSAMail ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.5.1 NAME 'soniaSequence' SUP top STRUCTURAL MUST ( cn $ soniaSequenceMinValue $ soniaSequenceMaxValue $ soniaSequenceIncrementBy ) 
+ MAY ( soniaSequenceCycleIsEnabled $ soniaSequenceIsLocked $ soniaSequenceLastValue ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.6.1 NAME 'soniaHost' SUP ipHost MAY (soniaHostMacAddress $ soniaHostSubdomainName $ soniaHostDefaultRouter $ 
+ soniaHostDirectoryServiceType $ soniaHostDnsEntryType $ soniaHostDnsDomain $ soniaHostNetgroupEntry $ soniaHostHardwareType $ soniaHostOsType $ soniaHostNetbootType $ soniaHostIsInstallServer 
+ $ soniaHostIsUpdateServer $ soniaHostAquisitionDate $ soniaHostWarrentyUntil ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.7.1 NAME 'soniaVoting' SUP top STRUCTURAL MUST cn MAY ( soniaVotingDescription $ soniaVotingStartDate $ soniaVotingEndDate $ soniaVotingAccessFilter 
+ $ soniaVotingResultViewer $ soniaVotingMinChoice $ soniaVotingMaxChoice $ soniaVotingSeat $ soniaVotingSucceedCount $ soniaVotingFailedCount $ soniaVotingEnabledCount ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.8.1 NAME 'soniaVotingChoice' SUP top STRUCTURAL MUST cn MAY ( soniaVotingChoiceDescription $ soniaVotingChoiceCount ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.9.1 NAME 'soniaSync' SUP top AUXILIARY MUST soniaSyncTimestamp X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.10.1 NAME 'soniaMailingList' SUP inetmailgroup AUXILIARY MAY ( soniaMailingListBroadcastType 
+ $ soniaMailingListAdministrator $ soniaMailingListJoinabilityFilter $ soniaMailingListAllowedBroadcaster ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.11.1 NAME 'soniaEmployeeType' SUP top STRUCTURAL MUST ( cn $ employeeType $ employeeNumber ) MAY ( description $ soniaEmployeeTypeIsVisible ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.12.1 NAME 'soniaPropertyEntry' SUP top AUXILIARY MAY ( soniaProperty $ description ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.13.1 NAME 'SoniaVersusOrganization' SUP top AUXILIARY MAY ( versusLongSchoolName $ versusShortSchoolName $ versusSchoolAdministrationId $ versusAntaresSchoolId ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.14.1 NAME 'SoniaVersusUser' SUP top AUXILIARY MAY ( versusOrgChangeOrigin $ versusOrgChangeTarget $ versusOrgChangeRequest $ versusOrgChangeRequestor ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.15.1 NAME 'soniaMapping' SUP top AUXILIARY MAY ( soniaMappingKey $ soniaMappingName $ soniaMappingDescription $ soniaMappingTypeKey ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.16.1 NAME 'soniaMailAccount' SUP inetMailUser STRUCTURAL MUST ( uid $ mail ) MAY ( soniaMailDelegatedAddress ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.17.1 NAME 'soniaPermissions' SUP top AUXILIARY MAY ( soniaPermissionRead $ soniaPermissionWrite $ soniaPermissionOwner $ soniaPermissionAdmin $ soniaPermissionMaxAssignments $ soniaPermissionAssignmentFilter ) X-ORIGIN 'SONIA' )
+objectClasses: ( 1.3.6.1.4.1.17379.1.18.1 NAME 'soniaOrganizationalAccount' SUP top AUXILIARY MUST ou MAY ( soniaDepartment $ soniaInstitute $ soniaEducationalDepartment $ soniaCampus $ l ) X-ORIGIN 'SONIA' )
+#

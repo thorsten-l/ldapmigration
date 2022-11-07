@@ -1,0 +1,12 @@
+#
+# docker build --progress plain --no-cache -f Dockerfile.fc37 -t fc37 .
+#
+FROM fedora:37
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "*** BUILDPLATFORM=$BUILDPLATFORM TARGETPLATFORM=$TARGETPLATFORM"
+
+RUN MACH=`uname -m` && echo $MACH 
+
+
+CMD [ "/bin/bash" ]

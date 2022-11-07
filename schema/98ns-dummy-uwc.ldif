@@ -1,0 +1,66 @@
+# PROPRIETARY/CONFIDENTIAL. Use of this product is subject to
+# license terms. Copyright 2001 Sun Microsystems, Inc.
+# Some preexisting portions Copyright 2001 Netscape Communications Corp.
+# All rights reserved.
+#
+# Last modified March 2003
+#
+# Dummy ldif file for uwc
+#
+# Objectclasses:
+#   sunUCPreferences
+#
+# Single valued attributes:
+#   sunUCDefaultApplication
+#   sunUCTheme
+#   sunUCColorScheme
+#   sunUCDefaultEmailHandler
+#   sunUCDateFormat
+#   sunUCDateDelimiter
+#   sunUCTimeFormat
+#   sunUCTimeZone
+#
+# Multi valued attributes:
+#   sunUCMailSendProfiles
+#   sunUCExtendedUserPrefs
+#   nswmExtendedUserPrefs
+#   sunAbExtendedUserPrefs
+#   sunUCExtendedClientPrefs
+#   sunUCExternalMailProfile
+#
+#
+#
+dn: cn=schema
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.920 NAME 'sunUCDefaultApplication' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.921 NAME 'sunUCTheme' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.922 NAME 'sunUCColorScheme' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.923 NAME 'sunUCDefaultEmailHandler' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.924 NAME 'sunUCDateFormat' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.925 NAME 'sunUCDateDelimiter' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.926 NAME 'sunUCTimeFormat' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.927 NAME 'sunUCTimeZone' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.928 NAME 'sunUCMailSendProfiles' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.929 NAME 'sunUCExtendedUserPrefs' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 2.16.840.1.113730.3.1.520 NAME 'nswmExtendedUserPrefs' DESC 'iPlanet defined attribute type' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Messaging Server' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.930 NAME 'sunAbExtendedUserPrefs' DESC 'Sun UWC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'Sun Communications Express' )
+#
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.931 NAME 'sunUCExtendedClientPrefs' DESC 'Sun CC attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'Sun Communication Center' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.933 NAME ( 'sunUCExternalMailProfile' ) DESC 'Sun Convergence attribute to represent user external mail server profile details'  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15  X-ORIGIN  'Sun convergence server' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.941 NAME 'abEventNotificationDestination' DESC 'Destination for AB event notifications' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'Sun Communications Express' )
+#
+#
+objectClasses: ( 1.3.6.1.4.1.42.2.27.9.2.143 NAME 'sunUCPreferences' DESC 'UWC object class' SUP top MAY ( sunUCDefaultApplication $ sunUCTheme $ sunUCColorScheme $ sunUCDefaultEmailHandler $ sunUCDateFormat $ sunUCDateDelimiter $ sunUCTimeFormat $ sunUCTimeZone $ sunUCMailSendProfiles $ sunUCExtendedUserPrefs $ nswmExtendedUserPrefs $ icsExtendedUserPrefs $ sunAbExtendedUserPrefs $ sunUCExtendedClientPrefs $ sunUCExternalMailProfile $ abEventNotificationDestination ) X-ORIGIN 'Sun Unified Web Client' )
+#
+#

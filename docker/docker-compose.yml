@@ -1,0 +1,13 @@
+services:
+
+  389ds:
+    image: tludewig/389ds:2.0.16-fedora
+    container_name: 389ds
+    restart: always
+    ports:
+      - "3389:3389"
+      - "3636:3636"
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ="Europe/Berlin"

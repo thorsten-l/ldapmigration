@@ -3,3 +3,6 @@ logs/
 config.xml
 config.xml*
 .DS_Store
+aci-sync.log
+ldapmigration.jar
+docker/data

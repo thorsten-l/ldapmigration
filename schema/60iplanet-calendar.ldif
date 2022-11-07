@@ -1,0 +1,302 @@
+#
+# PROPRIETARY/CONFIDENTIAL. Use of this product is subject to
+# license terms. Copyright (c) 2001 Sun Microsystems, Inc.
+# Some preexisting portions Copyright (c) 2001 Netscape Communications Corp.
+# All rights reserved.
+# 
+# iPlanet calendar schema elements.
+# Last modified May 2009
+#
+dn: cn=schema
+objectClasses: ( 2.16.840.1.113894.1009.1.2.3 NAME 'davEntity' DESC' Common 
+ dav object' AUXILIARY MAY ( mail $ davStore $ davAllowedServices $ davEven
+ tNotification $ davEventNotificationDestination $ davTimeZone $ davUniqueI
+ d ) X-ORIGIN 'JES Calendar' )
+objectClasses: ( 2.16.840.1.113894.1009.1.2.1 NAME 'nabUser' DESC 'NAB Entry
+  Object Class' AUXILIARY MAY ( cn $ givenName $ mail $ mailalternateaddress
+  $ preferredLanguage $ sn $ uid $ userPassword $ nabStatus $ nabStore) X-OR
+ IGIN 'OCUCS NAB' )
+objectClasses: ( 2.16.840.1.113894.1009.1.2.2 NAME 'nabDomain' DESC 'NAB Dom
+ ain Object Class' AUXILIARY MAY (nabDomainNames $ nabStatus $ davAllowedSer
+ vices $ nabDomainAcl $ nabStore ) X-ORIGIN 'OCUCS NAB' )
+objectClasses: ( 1.3.6.1.4.1.42.2.27.9.2.140 NAME 'icsCalendarUser' DESC 'Stan
+ dard Object Class' AUXILIARY MAY ( cn $ givenName $ mail $ mailalternateaddre
+ ss $ preferredLanguage $ sn $ uid $ userPassword $ icsAllowedServiceAccess $ 
+ icsCalendar $ icsCalendarOwned $ icsDefaultSet $ icsDWPHost $ icsExtended $ 
+ icsExtendedUserPrefs $ icsFirstDay $ icsFreeBusy $ icsGeo $ icsPartition $ ic
+ sPreferredHost $ icsQuota $ icsSet $ icsStatus $ icsSubscribed $ icsTimezone 
+ $ nswcalDisallowAccess $ aclGroupAddr ) X-ORIGIN 'JES Calendar' )
+objectClasses: ( 1.3.6.1.4.1.42.2.27.9.2.141 NAME 'icsCalendarResource' DESC' 
+ Standard Object Class' AUXILIARY MAY ( cn $ mail $ mailalternateaddress $ ic
+ sAlias $ icsCalendar $ icsCapacity $ icsContact $ icsDWPHost $ icsExtended $
+  icsExtendedResourcePrefs $ icsGeo $ icsPartition $ icsPreferredHost $ icsQu
+ ota $ icsStatus $ icsTimezone $ uid $ description $ owner $ icsSecondaryowne
+ rs $ icsDefaultacl $ icsDoublebooking $ icsAutoaccept ) X-ORIGIN 'JES Calend
+ ar' )
+objectClasses: ( 1.3.6.1.4.1.42.2.27.9.2.149 NAME 'icsCalendarDomain' DESC 'S
+ tandard Object Class' AUXILIARY MAY ( icsAllowedServiceAccess $ icsAllowRigh
+ ts $ icsAnonymousAllowWrite $ icsAnonymousCalendar $ icsAnonymousDefaultSet 
+ $ icsAnonymousLogin $ icsAnonymousSet $ icsDWPBackEndHosts $ icsExtended $ i
+ csExtendedDomainPrefs $ icsDefaultAccess $ icsDomainAllowed $ icsDomainName
+ s $ icsDomainNotAllowed $ icsMandatorySubscribed $ icsMandatoryView $ icsPre
+ ferredHost $ icsQuota $ icsRecurrenceBound $ icsRecurrenceDate $ icsSessionT
+ imeout $ icsSourceHtml $ icsStatus $ icsTimezone $ davAllowedServices $ icsD
+ omainAcl ) X-ORIGIN 'JES Calendar' )
+objectClasses: ( 2.16.840.1.113730.3.2.142 NAME 'inetResource' DESC 'Standard 
+ Object Class' STRUCTURAL MUST cn MAY ( telephoneNumber $ facsimileTelephoneN
+ umber $ mail $ postalAddress $ inetResourceStatus ) X-ORIGIN 'iPlanet Calend 
+ ar Services' )
+objectClasses: ( 1.3.6.1.4.1.42.2.27.9.2.1 NAME 'icsCalendarDWPHost' DESC 'Sta
+ ndard Object Class' STRUCTURAL MAY ( cn $ description $ icsDWPHost $ icsRegu
+ larExpressions $ icsExtended $ icsDomainNames $ icsStatus ) X-ORIGIN 'iPlane
+ t Calendar Services' )
+objectClasses: ( 1.3.6.1.4.1.42.2.27.9.2.113 NAME 'icsCalendarGroup' DESC' Cal
+ endar Group object' SUP top AUXILIARY MUST groupid MAY ( icsSecondaryowners 
+ $ icsDefaultacl $icsCalendar $icsStatus $ icsTimezone $ icsDWPHost $ icsDoub
+ lebooking $ icsAutoaccept $ mail ) X-ORIGIN 'JES Calendar' )
+objectClasses: ( 2.16.840.1.113730.3.2.145 NAME 'icsAdministrator' DESC 'Stand
+ ard Object Class' STRUCTURAL MAY ( icsAdminRole $ icsExtended $ icsExtendedG
+ roupPrefs ) X-ORIGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.709 NAME 'mnggrpDeletionPolicy' DESC '
+ Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIG
+ IN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.750 NAME 'icsRecurrenceBound' DESC 'St
+ andard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN
+  'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.697 NAME 'domOrgMaxUsers' DESC 'Standa
+ rd Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iP
+ lanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.745 NAME 'icsGeo' DESC 'Standard Attri
+ bute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Ca
+ lendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.731 NAME 'icsCalendar' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPla 
+ net Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.758 NAME 'inetResourceStatus' DESC 'St
+ andard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN
+  'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.726 NAME 'icsAllowedServiceAccess' DES
+ C 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-O
+ RIGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.704 NAME 'memberOfManagedGroup' DESC '
+ Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIG
+ IN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.739 NAME 'icsExtendedDomainPrefs' DESC
+  'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet
+  Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.740 NAME 'icsExtendedGroupPrefs' DESC 
+ 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet 
+  Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.717 NAME 'un' DESC 'Standard Attribute
+ ' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Calend
+ ar Services' 
+ )
+attributeTypes: ( 2.16.840.1.113730.3.1.753 NAME 'icsSet' DESC 'Standard Attri
+ bute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.721 NAME 'dateOfBirth' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlan 
+ et Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.748 NAME 'icsQuota' DESC 'Standard Att
+ ribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlanet C
+ alendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.734 NAME 'icsDefaultAccess' DESC 'Stan
+ dard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calend
+ ar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.712 NAME 'mnggrpStatus' DESC 'Standard
+  Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlan
+  et Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.729 NAME 'icsAnonymousCalendar' DESC '
+ Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet C
+ alendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.743 NAME 'icsFirstDay' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlan 
+ et Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.756 NAME 'icsSubscribed' DESC 'Standar
+ d Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar 
+ Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.724 NAME 'icsAdminRole' DESC 'Standard
+  Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar S
+ ervices' )
+attributeTypes: ( 2.16.840.1.113730.3.1.702 NAME 'domainUidSeparator' DESC 'St
+ andard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN
+  'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.737 NAME 'icsDomainNotAllowed' DESC 'S
+ tandard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGI
+ N 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.715 NAME 'mnggrpMailQuota' DESC 'Stand
+ ard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iP
+ lanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.751 NAME 'icsRecurrenceDate' DESC 'Sta
+ ndard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 
+ 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.698 NAME 'domOrgNumUsers' DESC 'Standa
+ rd Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iP
+ lanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.746 NAME 'icsMandatorySubscribed' DESC
+  'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet
+  Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.732 NAME 'icsAnonymousSet' DESC 'Stand
+ ard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calend
+ ar Services'  )
+attributeTypes: ( 2.16.840.1.113730.3.1.710 NAME 'mnggrpAdditionPolicy' DESC '
+ Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIG
+ IN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.727 NAME 'icsAllowRights' DESC 'Standa
+ rd Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iP
+ lanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.705 NAME 'maxPabEntries' DESC 'Standar
+ d Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPl
+ anet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.741 NAME 'icsExtendedResourcePrefs' DE
+ SC 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlan
+ et Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.718 NAME 'memberOfPAB' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar S
+ ervices' )
+attributeTypes: ( 2.16.840.1.113730.3.1.754 NAME 'icsSourceHtml' DESC 'Standar
+ d Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPl
+ anet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.722 NAME 'organizationUnitName' DESC '
+ Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIG
+ IN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.749 NAME 'icsPreferredHost' DESC 'Stan
+ dard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN '
+ iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.700 NAME 'inetDomainCertMap' DESC 'Sta
+ ndard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 
+ 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.735 NAME 'icsDefaultSet' DESC 'Standar
+ d Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPl
+ anet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.713 NAME 'mnggrpMaxUsers' DESC 'Standa
+ rd Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iP
+ lanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.798 NAME 'icsAnonymousLogin' DESC 'Sta
+ ndard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 
+ 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.744 NAME 'icsFreeBusy' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar S
+ ervices' )
+attributeTypes: ( 2.16.840.1.113730.3.1.730 NAME 'icsAnonymousDefaultSet' DESC
+  'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-OR
+ IGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.757 NAME 'icsTimezone' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlan
+ et Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.725 NAME 'icsAlias' DESC 'Standard Att
+ ribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar Servi
+ ces' )
+attributeTypes: ( 2.16.840.1.113730.3.1.703 NAME 'pabURI' DESC 'Standard Attri
+ bute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Ca
+ lendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.738 NAME 'icsExtended' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar S
+ ervices' )
+attributeTypes: ( 2.16.840.1.113730.3.1.716 NAME 'mnggrpUserClassOfServices' D
+ ESC 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPla
+ net Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.752 NAME 'icsSessionTimeout' DESC 'Sta
+ ndard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 
+ 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.800 NAME 'icsCapacity' DESC 'Standard 
+ Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE X-ORIGIN 'iPlan
+ et Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.699 NAME 'inetDomainSearchFilter' DESC
+  'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-OR
+ IGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.720 NAME 'nickname' DESC 'Standard Att
+ ribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet 
+ Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.747 NAME 'icsMandatoryView' DESC 'Stan
+ dard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calen
+ dar Services'  )
+attributeTypes: ( 2.16.840.1.113730.3.1.733 NAME 'icsContact' DESC 'Standard A
+ ttribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar Se
+ rvices' )
+attributeTypes: ( 2.16.840.1.113730.3.1.711 NAME 'mnggrpBillableUser' DESC 'St
+ andard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.12 SINGLE-VALUE X-ORIGIN
+  'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.728 NAME 'icsAnonymousAllowWrite' DESC
+  'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-OR
+ IGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.719 NAME 'memberOfPABGroup' DESC 'Stan
+ dard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calen
+ dar Services'  )
+attributeTypes: ( 2.16.840.1.113730.3.1.755 NAME 'icsStatus' DESC 'Standard At
+ tribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet
+  Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.701 NAME 'inetCanonicalDomainName' DES
+ C 'Standard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-O
+ RIGIN 'iPlanet Calendar Services' )
+attributeTypes: ( 2.16.840.1.113730.3.1.736 NAME 'icsDomainAllowed' DESC 'Stan
+ dard Attribute' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN '
+ iPlanet Calendar Services' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.1 NAME 'icsDWPHost' DESC 'iPlanet Calendar Attribute. Used to store one DWP server hostname' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlanet Calendar Services'  )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.2 NAME 'icsRegularExpressions' DESC 
+ 'iPlanet Calendar Server attribute. Used to store multiple regular expresio
+ ns' EQUALITY caseExactMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN '
+ iPlanet Calendar Services' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.3 NAME 'icsDomainNames' DESC 'iPlane
+ t Calendar Server attribute. Used to store virtual domain names' EQUALITY c
+ aseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calen
+ dar Services' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.4 NAME 'icsPartition' DESC 'iPlanet 
+ Calendar Server attribute. Used to store the name of the partition that hol
+ ds a calendar database.  Reserved for future calendar use.' EQUALITY caseEx
+ actMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'iPlane
+ t Calendar Services' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.5 NAME 'icsDWPBackEndHosts' DESC 'iP
+ lanet Calendar Server attribute. Used in domain entry to store the possible
+ DWP backendhosts. machine1, machine2 - can be fully qualified host names' 
+ EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPl
+ anet Calendar Services' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.6 NAME 'icsCalendarOwned' DESC 'iPla
+ net Calendar Server attribute. Used to store calendar names owned by a spec
+ ific user' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 X-ORIGIN 'iPlanet Calendar 
+ Services' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.784 NAME 'groupid' DESC 'name of
+ calendar group' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE X-ORIGIN 'JES Calendar' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.785 NAME 'icsSecondaryowners' DESC '
+ DNs of co-owners' EQUALITY distinguishedNameMatch SYNTAX 1.3.6.1.4.1.1466.115.
+ 121.1.12 X-ORIGIN 'JES Calendar' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.786 NAME 'icsDefaultacl' DESC 'acl string for new calendar group' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Calendar' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.787 NAME 'icsDoublebooking' DESC 
+ 'does group allow doublebooking' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.
+ 1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Calendar' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.788 NAME 'icsAutoaccept' DESC 'invi
+ tations automatically accepted or not' EQUALITY caseIgnoreMatch SYNTAX
+  1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Calendar' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.936 NAME 'davStore' DESC 'Logical B
+ acked ID' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Cal
+ endar' ) 
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.937 NAME 'davAllowedServices' DESC 
+ 'List of Allowed Services' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE
+  X-ORIGIN 'JES Calendar' ) 
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.938 NAME 'davTimezone' DESC 'Dav ob
+ ject Timezone' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'J
+ ES Calendar' ) 
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.939 NAME 'davEventNotification' DESC
+  'enable DAV JMS notifications' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.
+ 1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'JES Calendar' ) 
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.940 NAME 'davEventNotificationDesti
+ nation' DESC 'Dav JMS Notification Topic' SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 15 SINGLE-VALUE X-ORIGIN 'JES Calendar' )
+attributeTypes: ( 1.3.6.1.4.1.42.2.27.9.1.991 NAME 'icsDomainAcl' DESC 'acl s
+ tring for calendar domain' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.
+ 115.121.1.15 SINGLE-VALUE X-ORIGIN 'OCUCS Calendar' )
+attributeTypes: ( 2.16.840.1.113894.1009.1.1.1 NAME 'davUniqueId' DESC 'Dav E
+ ntry Unique ID' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN '
+ OCUCS Calendar NAB' )
+attributeTypes: ( 2.16.840.1.113894.1009.1.1.2 NAME 'nabStatus' DESC 'NAB Ent
+ ry status' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-ORIGIN 'OCUCS
+  NAB' )
+attributeTypes: ( 2.16.840.1.113894.1009.1.1.3 NAME 'nabDomainAcl' DESC 'ACL 
+ string for NAB domain' EQUALITY caseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.
+ 121.1.15 SINGLE-VALUE X-ORIGIN 'OCUCS NAB' )
+attributeTypes: ( 2.16.840.1.113894.1009.1.1.4 NAME 'nabDomainNames' DESC 'St
+ ore domain names for NAB access control' EQUALITY caseIgnoreMatch SYNTAX 1.3
+ .6.1.4.1.1466.115.121.1.15 X-ORIGIN 'OCUCS NAB' )
+attributeTypes: ( 2.16.840.1.113894.1009.1.1.5 NAME 'nabStore' DESC 'NAB Spec
+ ificLogical Backed ID' SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE X-O
+ RIGIN 'OCUCS NAB' )

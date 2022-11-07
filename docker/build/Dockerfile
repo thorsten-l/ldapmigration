@@ -1,0 +1,21 @@
+FROM fedora:37
+LABEL version="2.3.0"
+LABEL description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
+LABEL org.opencontainers.image.authors="Thorsten Ludewig <t.ludewig@gmail.com>"
+
+COPY entrypoint.sh /
+
+RUN dnf upgrade -y && dnf install -y 389-ds-base && dnf clean all \
+    && mkdir -p /data && chmod 0755 /entrypoint.sh \
+    && mv /etc/dirsrv /etc/dirsrv.dist \
+    && ln -s /data /etc/dirsrv
+
+HEALTHCHECK --start-period=5m --timeout=5s --interval=5s --retries=2 \
+  CMD /usr/libexec/dirsrv/dscontainer -H
+
+WORKDIR /data
+VOLUME /data
+
+EXPOSE 3389 3636
+
+CMD [ "/entrypoint.sh" ]
