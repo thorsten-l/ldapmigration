@@ -1,0 +1,5 @@
+target/
+logs/
+config.xml
+config.xml*
+.DS_Store

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <timezone>Europe/Berlin</timezone>
+    <baseDn>dc=sonia,dc=de</baseDn>
+    <sourceHost>
+        <hostname>dps1.sonia.de</hostname>
+        <port>636</port>
+        <sslEnabled>true</sslEnabled>
+        <credentials>
+            <bindDN>cn=Directory Manager</bindDN>
+            <password>***********</password>
+        </credentials>
+    </sourceHost>
+    <destinationHost>
+        <hostname>localhost</hostname>
+        <port>3389</port>
+        <sslEnabled>false</sslEnabled>
+        <credentials>
+            <bindDN>cn=Directory Manager</bindDN>
+            <password>***********</password>
+        </credentials>
+    </destinationHost>
+    <syncTimestampEntry match="equals">
+        <dn>cn=ldapmigration,dc=sonia,dc=de</dn>
+        <attributeName>soniaSyncTimestamp</attributeName>
+    </syncTimestampEntry>
+    <sourceIgnoreEntries>
+        <ldapEntry match="equals">
+            <dn>cn=ocucs admin policy,dc=sonia,dc=de</dn>
+        </ldapEntry>
+    </sourceIgnoreEntries>
+    <destinationIgnoreEntries>
+        <ldapEntry match="equals">
+            <dn>cn=ldapmigration,dc=sonia,dc=de</dn>
+        </ldapEntry>
+        <ldapEntry match="equals">
+            <dn>cn=389_ds_system,dc=sonia,dc=de</dn>
+        </ldapEntry>
+    </destinationIgnoreEntries>
+</configuration>
