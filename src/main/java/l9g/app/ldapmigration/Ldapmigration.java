@@ -79,8 +79,9 @@ public class Ldapmigration
     readConfiguration();
 
     boolean initialSync = args.length == 1 && "-i".equals(args[0]);
-    
-    if ( initialSync )
+    boolean updateBaseDn = args.length == 1 && "-b".equals(args[0]);
+
+    if (initialSync)
     {
       SyncTimestampUtil.add();
       SyncBaseDn.synchronizeGeneralAttributes();
@@ -90,9 +91,17 @@ public class Ldapmigration
     }
     else
     {
-      SyncBaseDn.synchronizeGeneralAttributes();
+      if (updateBaseDn)
+      {
+        SyncBaseDn.synchronizeGeneralAttributes();
+      }
+      
       SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN();
-      SyncBaseDn.synchronizeACIs();
+      
+      if (updateBaseDn)
+      {
+        SyncBaseDn.synchronizeACIs();
+      }
     }
   }
 }
