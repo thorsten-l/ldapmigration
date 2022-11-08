@@ -1,26 +1,33 @@
 # INIT
 
+0. `cd docker`
+
 1. start 389ds `docker compose up`
-2. copy Directory Manager Password from log
+2. copy Directory Manager Password from LOG
+
+    `INFO: IMPORTANT: Set cn=Directory Manager password to "xyz. a very long password"`
+
 3. wait until log message:
 
    `INFO: 389-ds-container started.`
 
-4. stop 389ds `docker compose stop`
-5. copy `schema/` into `data/slapd-localhost/schema/`
-6. edit `data/slapd-localhost/dse.ldif`
+4. Initial Settings
 
-  - nsslapd-maxbersize: 4194304
-  - nsslapd-maxsasliosize: 4194304
-  - nsslapd-syntaxcheck: off
-  - nsslapd-ignore-virtual-attrs: on
-  - nsslapd-dynamic-plugins: on
+```text
+docker exec 389ds dsconf localhost config replace nsslapd-syntaxcheck=off
+docker exec 389ds dsconf localhost config replace nsslapd-maxbersize=4194304
+docker exec 389ds dsconf localhost config replace nsslapd-maxsasliosize=4194304
+docker exec 389ds dsconf localhost config replace nsslapd-dynamic-plugins=on
+docker exec 389ds dsconf localhost plugin memberof enable
+```
 
+5. stop 389ds `docker compose stop`
+6. copy `../schema/` into `data/slapd-localhost/schema/`
 7. start 389ds `docker compose up -d`
 8. `docker exec -it 389ds dsconf slapd-localhost backend create --suffix="dc=sonia,dc=de" --be-name="sonia"`
 9. `docker exec -it 389ds dsidm -b "dc=sonia,dc=de" slapd-localhost initialise`
 
-10. edit `config.xml`
+10. edit `config.xml` - Directory Manager password...
 
 11. `./ldapmigrate.jar -i`
 

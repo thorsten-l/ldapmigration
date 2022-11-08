@@ -28,6 +28,7 @@ public class SyncLdapInitial
   {
     LOGGER.info("deleteAllDestinationEntries()");
     double startTimestamp = System.currentTimeMillis();
+    double endTimestamp = 0;
 
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
@@ -91,17 +92,21 @@ public class SyncLdapInitial
 
     
 
-    double endTimestamp = System.currentTimeMillis();
+    endTimestamp = System.currentTimeMillis();
     LOGGER.info("deleteAllDestinationEntries() - done in {}s", (endTimestamp
       - startTimestamp) / 1000.0);
   }
 
-  public static void synchronizeAllEntries() throws Throwable
+  public static void synchronizeAllEntries()
   {
     LOGGER.info("synchronizeAllEntries()");
     ASN1GeneralizedTime soniaSyncTimestamp = new ASN1GeneralizedTime();
     double startTimestamp = System.currentTimeMillis();
+    double endTimestamp = 0;
+    String currentEntryDn = null;
 
+    try
+    {
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
     final HashSet<String> sourceIgnoreDnSet = new HashSet<>();
@@ -153,7 +158,7 @@ public class SyncLdapInitial
       System.exit(0);
     }
 
-    double endTimestamp = System.currentTimeMillis();
+    endTimestamp = System.currentTimeMillis();
 
     LOGGER.info("# entries in source ldap = {} read in {}s", sourceEntries,
       (endTimestamp - startTimestamp) / 1000.0);
@@ -174,7 +179,9 @@ public class SyncLdapInitial
 
       addCounter++;
 
-      LOGGER.debug("ADDING {}", entry.getDN());
+      currentEntryDn = entry.getDN();
+      
+      LOGGER.debug("ADDING {}", currentEntryDn );
     
       LDAPResult addResult = destinationConnection.add(entry);
       if (addResult.getResultCode() != ResultCode.SUCCESS)
@@ -185,6 +192,15 @@ public class SyncLdapInitial
     }
 
     SyncTimestampUtil.set(soniaSyncTimestamp);
+    
+    }
+    catch( Throwable t )
+    {
+      LOGGER.error("ERROR on {} : {}", currentEntryDn, t.getMessage());
+      System.exit(0);
+    }
+    
+    
     endTimestamp = System.currentTimeMillis();
     LOGGER.info("synchronizeAllEntries() - done in {}s", (endTimestamp
       - startTimestamp) / 1000.0);
