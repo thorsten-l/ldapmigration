@@ -1,5 +1,7 @@
-FROM fedora:37
-LABEL version="2.3.0"
+ARG OS_VERSION
+ARG DS_VERSION
+FROM fedora:${OS_VERSION}
+LABEL version=${DS_VERSION}
 LABEL description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
 LABEL org.opencontainers.image.authors="Thorsten Ludewig <t.ludewig@gmail.com>"
 
