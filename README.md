@@ -18,6 +18,7 @@ docker exec 389ds dsconf localhost config replace nsslapd-syntaxcheck=off
 docker exec 389ds dsconf localhost config replace nsslapd-maxbersize=4194304
 docker exec 389ds dsconf localhost config replace nsslapd-maxsasliosize=4194304
 docker exec 389ds dsconf localhost config replace nsslapd-dynamic-plugins=on
+docker exec 389ds dsconf localhost config replace nsslapd-allow-anonymous-access=off
 docker exec 389ds dsconf localhost plugin memberof enable
 ```
 
