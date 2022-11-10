@@ -1,0 +1,20 @@
+# dsconf localhost backend index add --index-type eq --index-type pres --attr soniaInstitue --reindex sonia
+
+dn: cn=Rechenzentrum,ou=Groups,o=ostfalia.de,dc=sonia,dc=de
+objectclass: groupOfNames
+cn: Rechenzentrum
+
+dn: cn=Rechenzentrum Accounts,cn=Auto Membership Plugin,cn=plugins,cn=config
+objectclass: autoMemberDefinition
+autoMemberScope: ou=People,o=ostfalia.de,dc=sonia,dc=de
+autoMemberFilter: (&(objectclass=soniaPerson)(soniaInstitute=11))
+autoMemberDefaultGroup: cn=Rechenzentrum,ou=Groups,o=ostfalia.de,dc=sonia,dc=de
+autoMemberGroupingAttr: member:dn
+
+dn: cn=rebuildtask1,cn=automember rebuild membership,cn=tasks,cn=config
+objectClass: top
+objectclass: extensibleObject
+cn: rebuildtask1
+basedn: ou=people,o=ostfalia.de,dc=sonia,dc=de
+filter: (&(objectclass=soniaPerson)(soniaInstitute=11))
+scope: sub
