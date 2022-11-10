@@ -41,6 +41,7 @@ public class LdapEntry
   @XmlJavaTypeAdapter(l9g.app.ldapmigration.config.XmlMatchTypeAdapter.class)
   private MatchType match;
 
+  @XmlAttribute
   private String dn;
 
   private String attributeName;

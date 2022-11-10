@@ -37,21 +37,14 @@
             <password>***********</password>
         </credentials>
     </destinationHost>
-    <syncTimestampEntry match="equals">
-        <dn>cn=ldapmigration,dc=test,dc=de</dn>
+    <syncTimestampEntry match="equals" dn="cn=ldapmigration,dc=test,dc=de">
         <attributeName>soniaSyncTimestamp</attributeName>
     </syncTimestampEntry>
     <sourceIgnoreEntries>
-        <ldapEntry match="equals">
-            <dn>cn=ocucs admin policy,dc=test,dc=de</dn>
-        </ldapEntry>
+        <ldapEntry match="equals" dn="cn=ocucs admin policy,dc=test,dc=de"/>
     </sourceIgnoreEntries>
     <destinationIgnoreEntries>
-        <ldapEntry match="equals">
-            <dn>cn=ldapmigration,dc=test,dc=de</dn>
-        </ldapEntry>
-        <ldapEntry match="equals">
-            <dn>cn=389_ds_system,dc=test,dc=de</dn>
-        </ldapEntry>
+        <ldapEntry match="equals" dn="cn=ldapmigration,dc=test,dc=de"/>
+        <ldapEntry match="equals" dn="cn=389_ds_system,dc=test,dc=de"/>
     </destinationIgnoreEntries>
 </configuration>
