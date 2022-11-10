@@ -1,0 +1,5 @@
+#!/bin/bash
+./BUILDX_NARGS.sh 35 2.0.16
+./BUILDX_NARGS.sh 36 2.1.5
+./BUILDX_NARGS.sh 37 2.2.3
+./BUILDX_NARGS.sh 38 2.3.0
