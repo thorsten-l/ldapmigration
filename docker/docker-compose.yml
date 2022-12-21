@@ -1,7 +1,7 @@
 services:
 
   389ds:
-    image: tludewig/389ds:2.0.16-fc35
+    image: tludewig/389ds:2.3.1-fedora
     container_name: 389ds
     restart: always
     ports:
