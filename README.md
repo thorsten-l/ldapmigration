@@ -2,9 +2,9 @@
 
 0. `cd docker`
 
-1. start 389ds `docker compose up`
-2. copy Directory Manager Password from LOG
-
+1. start 389ds `docker compose up -d`
+2. `docker compose logs -f` copy Directory Manager Password from LOG
+   
     `INFO: IMPORTANT: Set cn=Directory Manager password to "xyz. a very long password"`
 
 3. wait until log message:
@@ -23,8 +23,8 @@ docker exec 389ds dsconf localhost plugin memberof enable
 ```
 
 5. stop 389ds `docker compose stop`
-6. copy `../schema/` into `data/slapd-localhost/schema/`
-7. start 389ds `docker compose up -d`
+6. `cp ../schema/* ./data/slapd-localhost/schema/`
+7. start 389ds `docker compose start`
 8. `docker exec -it 389ds dsconf slapd-localhost backend create --suffix="dc=sonia,dc=de" --be-name="sonia"`
 9. `docker exec -it 389ds dsidm -b "dc=sonia,dc=de" slapd-localhost initialise`
 
