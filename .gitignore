@@ -6,3 +6,4 @@ config.xml*
 aci-sync.log
 ldapmigration.jar
 docker/data
+nb-configuration.xml
