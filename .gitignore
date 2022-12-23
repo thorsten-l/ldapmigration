@@ -5,5 +5,8 @@ config.xml*
 .DS_Store
 aci-sync.log
 ldapmigration.jar
-docker/data
+/docker/data
+/docker/data*
+/docker/build/data
+/docker/build/data*
 nb-configuration.xml

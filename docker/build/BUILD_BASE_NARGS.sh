@@ -6,7 +6,7 @@ DS_VERSION=$2
 echo "OS_VERSION=$OS_VERSION"
 echo "DS_VERSION=$DS_VERSION"
 echo "BUILD_VERSION=$BUILD_VERSION"
-docker build \
+docker build --no-cache \
   --build-arg OS_VERSION="$OS_VERSION" \
   --build-arg DS_VERSION="$DS_VERSION" \
   -t "389ds:$BUILD_VERSION-fedora" -f Dockerfile.nargs .
