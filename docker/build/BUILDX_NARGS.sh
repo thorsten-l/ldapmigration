@@ -11,14 +11,14 @@ docker buildx build --no-cache --file Dockerfile.nargs \
   --build-arg OS_VERSION="$OS_VERSION" \
   --build-arg DS_VERSION="$DS_VERSION" \
   --push \
-  --platform linux/arm64/v8,linux/amd64 \
+  --platform linux/arm64,linux/amd64 \
   --tag "tludewig/389ds:$DS_VERSION-fedora" .
 
-docker buildx build --no-cache --file Dockerfile.nargs \
+docker buildx build --file Dockerfile.nargs \
   --build-arg OS_VERSION="$OS_VERSION" \
   --build-arg DS_VERSION="$DS_VERSION" \
   --push \
-  --platform linux/arm64/v8,linux/amd64 \
+  --platform linux/arm64,linux/amd64 \
   --tag "tludewig/389ds:$DS_VERSION-fc$OS_VERSION" .
 
 fi

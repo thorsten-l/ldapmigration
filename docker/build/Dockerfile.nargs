@@ -1,16 +1,15 @@
 ARG OS_VERSION
 ARG DS_VERSION
 FROM fedora:${OS_VERSION}
-LABEL version=$DS_VERSION
 LABEL description="389 Directory Server. The enterprise-class Open Source LDAP server for Linux."
+LABEL maintainer="Thorsten Ludewig <t.ludewig@gmail.com>"
 LABEL org.opencontainers.image.authors="Thorsten Ludewig <t.ludewig@gmail.com>"
 
-COPY entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-
-RUN dnf upgrade -y && dnf install -y 389-ds-base && dnf clean all \
-    && mkdir -p /data && chmod 0755 /usr/local/bin/docker-entrypoint.sh \
-    && mv /etc/dirsrv /etc/dirsrv.dist \
-    && ln -s /data /etc/dirsrv
+RUN dnf upgrade -y && dnf install -y 389-ds-base && dnf clean all && \
+    mkdir -p /data/config && \
+	  mkdir -p /data/ssca && \
+	  ln -s /data/config /etc/dirsrv/slapd-localhost && \
+	  ln -s /data/ssca /etc/dirsrv/ssca
 
 HEALTHCHECK --start-period=5m --timeout=5s --interval=5s --retries=2 \
   CMD /usr/libexec/dirsrv/dscontainer -H
@@ -20,4 +19,4 @@ VOLUME /data
 
 EXPOSE 3389 3636
 
-CMD [ "/usr/local/bin/docker-entrypoint.sh" ]
+CMD [ "/usr/libexec/dirsrv/dscontainer", "-r" ]
