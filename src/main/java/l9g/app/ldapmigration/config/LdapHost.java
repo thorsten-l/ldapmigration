@@ -38,5 +38,8 @@ public class LdapHost
   private String hostname;
   private int port;
   boolean sslEnabled;
+  private long responseTimeout;
+  
+  @ToString.Exclude
   private Credentials credentials;
 }

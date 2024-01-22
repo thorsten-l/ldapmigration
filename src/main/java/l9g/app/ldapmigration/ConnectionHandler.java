@@ -81,6 +81,14 @@ public class ConnectionHandler
     LDAPConnection ldapConnection;
 
     LDAPConnectionOptions options = new LDAPConnectionOptions();
+
+    // increase response timeout (for all operation types) if set in config (default is 30000)
+    if(ldapHost.getResponseTimeout() > 0)
+    {
+      LOGGER.debug("set custom response timeout {} for {}", ldapHost.getResponseTimeout(), ldapHost.getHostname());
+      options.setResponseTimeoutMillis(ldapHost.getResponseTimeout());
+    }
+
     if (ldapHost.isSslEnabled())
     {
       ldapConnection = new LDAPConnection(createSSLSocketFactory(), options,

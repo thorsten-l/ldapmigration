@@ -32,6 +32,7 @@
         <hostname>localhost</hostname>
         <port>3389</port>
         <sslEnabled>false</sslEnabled>
+        <responseTimeout>60000</responseTimeout>
         <credentials>
             <bindDN>cn=Directory Manager</bindDN>
             <password>***********</password>
