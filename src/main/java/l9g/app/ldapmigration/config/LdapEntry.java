@@ -29,7 +29,7 @@ import lombok.ToString;
  *
  * @author Thorsten Ludewig (t.ludewig@gmail.com)
  */
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType( XmlAccessType.FIELD )
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,11 +38,62 @@ import lombok.ToString;
 public class LdapEntry
 {
   @XmlAttribute
-  @XmlJavaTypeAdapter(l9g.app.ldapmigration.config.XmlMatchTypeAdapter.class)
+  @XmlJavaTypeAdapter( l9g.app.ldapmigration.config.XmlMatchTypeAdapter.class )
   private MatchType match;
 
   @XmlAttribute
   private String dn;
 
   private String attributeName;
+
+  public boolean matchesDn( String name )
+  {
+    boolean result = false;
+
+    switch( match )
+    {
+      case equals:
+        result = name.equals( dn );
+        break;
+
+      case contains:
+        result = name.contains( dn );
+        break;
+
+      case startsWith:
+        result = name.startsWith( dn );
+        break;
+
+      case endsWith:
+        result = name.endsWith( dn );
+    }
+
+    return result;
+  }
+
+  public boolean matchesAttributeName( String name )
+  {
+    boolean result = false;
+
+    switch( match )
+    {
+      case equals:
+        result = name.equals( attributeName );
+        break;
+
+      case contains:
+        result = name.contains( attributeName );
+        break;
+
+      case startsWith:
+        result = name.startsWith( attributeName );
+        break;
+
+      case endsWith:
+        result = name.endsWith( attributeName );
+    }
+
+    return result;
+  }
+
 }

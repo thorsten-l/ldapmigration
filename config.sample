@@ -46,5 +46,8 @@
     <destinationIgnoreEntries>
         <ldapEntry match="equals" dn="cn=ldapmigration,dc=test,dc=de"/>
         <ldapEntry match="equals" dn="cn=389_ds_system,dc=test,dc=de"/>
+        <ldapEntry match="endsWith" dn="cn=repl keep alive 1,dc=sonia,dc=de"/>
+        <ldapEntry match="endsWith" dn="cn=repl keep alive 2,dc=sonia,dc=de"/>
+        <ldapEntry match="endsWith" dn="cn=repl keep alive 3,dc=sonia,dc=de"/>
     </destinationIgnoreEntries>
 </configuration>

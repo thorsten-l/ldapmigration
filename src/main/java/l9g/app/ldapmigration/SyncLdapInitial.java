@@ -26,6 +26,8 @@ import com.unboundid.ldap.sdk.SearchResult;
 import com.unboundid.ldap.sdk.SearchScope;
 import java.util.ArrayList;
 import java.util.HashSet;
+import l9g.app.ldapmigration.config.LdapEntry;
+import l9g.app.ldapmigration.config.MatchType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,15 +49,15 @@ public class SyncLdapInitial
 
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
-    final HashSet<String> destinationIgnoreDnSet = new HashSet<>();
+    final HashSet<LdapEntry> destinationIgnoredEntrySet = new HashSet<>();
 
     for (l9g.app.ldapmigration.config.LdapEntry entry
       : Ldapmigration.getConfig().getDestinationIgnoreEntries())
     {
-      destinationIgnoreDnSet.add(DN.normalize(entry.getDn()).toLowerCase());
+      destinationIgnoredEntrySet.add(entry);
     }
     
-    destinationIgnoreDnSet.add(baseDn);
+    destinationIgnoredEntrySet.add(new LdapEntry(MatchType.equals, baseDn, null));
 
     SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
       "|(objectClass=*)(objectClass=ldapSubEntry)", "dn");
@@ -74,7 +76,7 @@ public class SyncLdapInitial
       {
         String destinationDn = DN.normalize(entry.getDN()).toLowerCase();
         
-        if (destinationIgnoreDnSet.contains(destinationDn))
+        if (destinationIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(destinationDn)))
         {
           LOGGER.debug("IGNORE {}", destinationDn);
         }
@@ -124,19 +126,19 @@ public class SyncLdapInitial
     {
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
-    final HashSet<String> sourceIgnoreDnSet = new HashSet<>();
-    final HashSet<String> destinationIgnoreDnSet = new HashSet<>();
+    final HashSet<LdapEntry> sourceIgnoredEntrySet = new HashSet<>();
+    final HashSet<LdapEntry> destinationIgnoredEntrySet = new HashSet<>();
 
     for (l9g.app.ldapmigration.config.LdapEntry entry
       : Ldapmigration.getConfig().getSourceIgnoreEntries())
     {
-      sourceIgnoreDnSet.add(DN.normalize(entry.getDn()).toLowerCase());
+      sourceIgnoredEntrySet.add(entry);
     }
 
     for (l9g.app.ldapmigration.config.LdapEntry entry
       : Ldapmigration.getConfig().getDestinationIgnoreEntries())
     {
-      destinationIgnoreDnSet.add(DN.normalize(entry.getDn()).toLowerCase());
+      destinationIgnoredEntrySet.add(entry);
     }
 
     SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
@@ -159,8 +161,9 @@ public class SyncLdapInitial
       {
         String entryDn = DN.normalize(entry.getDN()).toLowerCase();
 
-        if (!sourceIgnoreDnSet.contains(entryDn)
-          && !destinationIgnoreDnSet.contains(entryDn)
+        if (
+          !sourceIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(entryDn))
+          && !destinationIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(entryDn))
           && !baseDn.equals(entryDn))
         {
           sourceEntryList.add(entry);

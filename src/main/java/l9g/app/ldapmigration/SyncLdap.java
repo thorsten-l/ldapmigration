@@ -28,6 +28,7 @@ import com.unboundid.ldap.sdk.SearchScope;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import l9g.app.ldapmigration.config.LdapEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,19 +93,19 @@ public class SyncLdap
     LOGGER.info("# entries in source ldap = {}", sourceEntries);
     LOGGER.info("# entries in destination ldap = {}", destinationEntries);
 
-    final HashSet<String> sourceIgnoreDnSet = new HashSet<>();
-    final HashSet<String> destinationIgnoreDnSet = new HashSet<>();
+    final HashSet<LdapEntry> sourceIgnoredEntrySet = new HashSet<>();
+    final HashSet<LdapEntry> destinationIgnoredEntrySet = new HashSet<>();
 
     for (l9g.app.ldapmigration.config.LdapEntry entry
       : Ldapmigration.getConfig().getSourceIgnoreEntries())
     {
-      sourceIgnoreDnSet.add(DN.normalize(entry.getDn()).toLowerCase());
+      sourceIgnoredEntrySet.add(entry);
     }
 
     for (l9g.app.ldapmigration.config.LdapEntry entry
       : Ldapmigration.getConfig().getDestinationIgnoreEntries())
     {
-      destinationIgnoreDnSet.add(DN.normalize(entry.getDn()).toLowerCase());
+      destinationIgnoredEntrySet.add(entry);
     }
 
     startTimestamp = System.currentTimeMillis();
@@ -115,7 +116,7 @@ public class SyncLdap
 
       for (String destinationDn : destinationDnList)
       {
-        if (destinationIgnoreDnSet.contains(destinationDn))
+        if (destinationIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(destinationDn)))
         {
           LOGGER.debug("IGNORE {}", destinationDn);
         }
@@ -128,6 +129,7 @@ public class SyncLdap
         }
       }
 
+      // DELETE 
       LOGGER.info("# entries to delete = {}", deleteDNs.size());
       int deleteCounter = 0;
 
@@ -149,30 +151,12 @@ public class SyncLdap
     }
 
     endTimestamp = System.currentTimeMillis();
-    LOGGER.info("done time={}s", (endTimestamp - startTimestamp) / 1000.0);
+    LOGGER.info("delete done time={}s", (endTimestamp - startTimestamp) / 1000.0);
 
-    int addCounter = 0;
+    //////////////////////////////////////////////////  
+    LOGGER.info("search entries to update");
 
-    for (String sourceDn : sourceDnList)
-    {
-      if (!destinationDnSet.contains(sourceDn)
-        && !sourceIgnoreDnSet.contains(sourceDn))
-      {
-        LOGGER.info("{} ADDING {}", ++addCounter, sourceDn);
-
-        LDAPResult addResult = ConnectionHandler.getDestinationConnection().add(
-          ConnectionHandler.getSourceConnection().getEntry(sourceDn, "*",
-            "nsRoleDn"));
-
-        if (addResult.getResultCode() != ResultCode.SUCCESS)
-        {
-          LOGGER.error("ADD Failed");
-          System.exit(0);
-        }
-      }
-    }
-
-    // ---------------
+    // UPDATING
     ASN1GeneralizedTime lastSyncTimestamp = SyncTimestampUtil.get();
 
     searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
@@ -240,6 +224,32 @@ public class SyncLdap
       }
     }
 
+    ////////////////////////
+    // ADDING
+    
+    LOGGER.info( "adding new entries");
+    
+    int addCounter = 0;
+
+    for (String sourceDn : sourceDnList)
+    {
+      if (!destinationDnSet.contains(sourceDn)
+        && !sourceIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(sourceDn)))
+      {
+        LOGGER.info("{} ADDING {}", ++addCounter, sourceDn);
+
+        LDAPResult addResult = ConnectionHandler.getDestinationConnection().add(
+          ConnectionHandler.getSourceConnection().getEntry(sourceDn, "*", "nsRoleDn"));
+
+        if (addResult.getResultCode() != ResultCode.SUCCESS)
+        {
+          LOGGER.error("ADD Failed");
+          System.exit(0);
+        }
+      }
+    }
+
+    //////////////////////////////////////////////////  
     SyncTimestampUtil.set(soniaSyncTimestamp);
 
     LOGGER.info("synchronizeGeneralAttributesInclusiveNsRoleDN() - done");
