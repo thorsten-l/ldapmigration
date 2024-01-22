@@ -19,6 +19,8 @@ import jakarta.xml.bind.JAXB;
 import java.io.File;
 import java.io.FileReader;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 import l9g.app.ldapmigration.config.Configuration;
 import lombok.Getter;
 import org.slf4j.Logger;
@@ -33,7 +35,7 @@ public class Ldapmigration
   private final static Logger LOGGER = LoggerFactory.getLogger(
     Ldapmigration.class.getName());
 
-  private static final String CONFIGURATION = "config.xml";
+  private static String CONFIGURATION = "config.xml";
 
   @Getter
   private static Configuration config;
@@ -91,10 +93,18 @@ public class Ldapmigration
   public static void main(String[] args) throws Throwable
   {
     buildInfo(System.out);
-    readConfiguration();
 
-    boolean initialSync = args.length == 1 && "-i".equals(args[0]);
-    boolean updateBaseDn = args.length == 1 && "-b".equals(args[0]);
+    List<String> argsList = Arrays.asList(args);
+    boolean initialSync = argsList.contains("-i");
+    boolean updateBaseDn = argsList.contains("-b");
+    boolean writeOrganizationAttributes = argsList.contains("-o");
+
+    if( argsList.contains("-f") )
+    {
+      CONFIGURATION = argsList.get( argsList.indexOf("-f") + 1 );
+    }
+
+    readConfiguration();
 
     if (initialSync)
     {
@@ -106,16 +116,23 @@ public class Ldapmigration
     }
     else
     {
-      if (updateBaseDn)
+      if (writeOrganizationAttributes)
       {
-        SyncBaseDn.synchronizeGeneralAttributes();
+        WriteOrganizationAttribute.writeOrganizationAttributeOnDestination();
       }
-      
-      SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN();
-      
-      if (updateBaseDn)
+      else
       {
-        SyncBaseDn.synchronizeACIs();
+        if (updateBaseDn)
+        {
+          SyncBaseDn.synchronizeGeneralAttributes();
+        }
+
+        SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN();
+
+        if (updateBaseDn)
+        {
+          SyncBaseDn.synchronizeACIs();
+        }
       }
     }
   }
