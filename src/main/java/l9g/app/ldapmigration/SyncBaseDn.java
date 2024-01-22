@@ -28,6 +28,7 @@ import com.unboundid.ldap.sdk.SearchResultEntry;
 import com.unboundid.ldap.sdk.SearchScope;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -106,48 +107,60 @@ public class SyncBaseDn
       Attribute acis = entry.getAttribute("aci");
 
       ArrayList<String> valueList = new ArrayList<>();
-      
-      try ( PrintWriter out = new PrintWriter(new FileWriter("aci-sync.log")))
+
+      try ( PrintWriter out = new PrintWriter(new FileWriter("logs/aci-sync.log", true)))
       {
-        LOGGER.info( "# of acis = {}", acis.size());
-        int counter = 0;
-        for (String value : acis.getValues())
+        out.println( "\n" + LocalDateTime.now() + "--------------------------");
+        
+        if( acis != null )
         {
-          ++counter;
-          value = value.trim();
-          valueList.add(value);
-
-          Modification modification = new Modification(ModificationType.REPLACE,
-            "aci", valueList.toArray(new String[0]));
-
-          ModifyRequest modifyRequest = new ModifyRequest(entry.getDN(),
-            modification);
-
-          LDAPResult ldapResult = null;
-
-          try
+          LOGGER.info( "# of acis = {}", acis.size());
+          int counter = 0;
+          for (String value : acis.getValues())
           {
-            ldapResult = ConnectionHandler.getDestinationConnection().modify(
-              modifyRequest);
-            if (ldapResult.getResultCode() != ResultCode.SUCCESS)
+            ++counter;
+            value = value.trim();
+            valueList.add(value);
+
+            Modification modification = new Modification(ModificationType.REPLACE,
+              "aci", valueList.toArray(new String[0]));
+
+            ModifyRequest modifyRequest = new ModifyRequest(entry.getDN(),
+              modification);
+
+            LDAPResult ldapResult = null;
+
+            try
             {
-              out.println( counter + " FR>  " + value);
-              out.println(ldapResult);
-              LOGGER.error("{} FR> {}\n{}", counter, value, ldapResult);
+              ldapResult = ConnectionHandler.getDestinationConnection().modify(
+                modifyRequest);
+              if (ldapResult.getResultCode() != ResultCode.SUCCESS)
+              {
+                out.println( counter + " FR>  " + value);
+                out.println(ldapResult);
+                LOGGER.error("{} FR> {}\n{}", counter, value, ldapResult);
+              }
+              else
+              {
+                out.println(counter + " S> " + value);
+                LOGGER.debug("{} S> {}", counter, value);
+              }
             }
-            else
+            catch (Throwable e)
             {
-              out.println(counter + " S> " + value);
-              LOGGER.debug("{} S> {}", counter, value);
+              out.println(counter + " FE>  " + value);
+              out.println("   - " + e.getMessage());
+              LOGGER.error("{} FE> {}\n{}", counter, value, e.getMessage());
+              valueList.remove(value);
             }
           }
-          catch (Throwable e)
-          {
-            out.println(counter + " FE>  " + value);
-            out.println("   - " + e.getMessage());
-            LOGGER.error("{} FE> {}\n{}", counter, value, e.getMessage());
-            valueList.remove(value);
-          }
+        }
+        else
+        {
+          LOGGER.info("no ACIs found on source, delete ACI attribute on target");
+          out.println("no ACIs found");
+          ConnectionHandler.getDestinationConnection().modify(
+            entry.getDN(), new Modification(ModificationType.REPLACE, "aci"));
         }
       }
     }
