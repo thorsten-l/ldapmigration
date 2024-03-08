@@ -187,12 +187,16 @@ public class SyncLdapInitial
       getDestinationConnection();
 
     int addCounter = 0;
+    double intervalTimestamp = System.currentTimeMillis();
 
     for (Entry entry : sourceEntryList)
     {
       if (addCounter % 1000 == 0)
       {
-        LOGGER.info("{}/{}", addCounter, sourceEntryList.size());
+        LOGGER.info("{}/{} read in {}s", addCounter, sourceEntryList.size(),
+          (System.currentTimeMillis() - intervalTimestamp) / 1000.0);
+        
+        intervalTimestamp = System.currentTimeMillis();
       }
 
       addCounter++;
