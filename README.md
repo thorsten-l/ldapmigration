@@ -95,11 +95,10 @@ docker exec 389ds dsconf localhost plugin attr-uniq set --enabled on --attr-name
 docker exec 389ds dsconf localhost plugin attr-uniq show "attribute uniqueness"
 ```
 
-### 10. Create and initialize suffix
+### 10. Create and initialize empty suffix
 
 ```bash
-docker exec 389ds dsconf slapd-localhost backend create --suffix="dc=sonia,dc=de" --be-name="sonia"
-docker exec 389ds dsidm -b "dc=sonia,dc=de" slapd-localhost initialise
+docker exec 389ds dsconf localhost backend create --suffix="dc=sonia,dc=de" --create-suffix --be-name="sonia"
 ```
 
 ### 11. Build ldapmigration tool and import data from source LDAP
