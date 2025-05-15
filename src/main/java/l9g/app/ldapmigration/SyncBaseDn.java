@@ -96,71 +96,81 @@ public class SyncBaseDn
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
     SearchRequest searchRequest = new SearchRequest(baseDn,
-      SearchScope.BASE, "objectClass=*", "aci");
+      SearchScope.SUB, "objectClass=*", "aci");
 
     SearchResult searchResult = ConnectionHandler.getSourceConnection().search(
       searchRequest);
 
-    if (searchResult.getEntryCount() == 1)
+    if (searchResult.getEntryCount() > 0)
     {
-      SearchResultEntry entry = searchResult.getSearchEntries().get(0);
-      Attribute acis = entry.getAttribute("aci");
-
-      ArrayList<String> valueList = new ArrayList<>();
-
       try ( PrintWriter out = new PrintWriter(new FileWriter("logs/aci-sync.log", true)))
       {
         out.println( "\n" + LocalDateTime.now() + "--------------------------");
-        
-        if( acis != null )
+
+        for( SearchResultEntry entry : searchResult.getSearchEntries() )
         {
-          LOGGER.info( "# of acis = {}", acis.size());
-          int counter = 0;
-          for (String value : acis.getValues())
+          Attribute acis = entry.getAttribute("aci");
+
+          ArrayList<String> valueList = new ArrayList<>();
+          if( acis != null )
           {
-            ++counter;
-            value = value.trim();
-            valueList.add(value);
-
-            Modification modification = new Modification(ModificationType.REPLACE,
-              "aci", valueList.toArray(new String[0]));
-
-            ModifyRequest modifyRequest = new ModifyRequest(entry.getDN(),
-              modification);
-
-            LDAPResult ldapResult = null;
-
-            try
+            LOGGER.info("{}: # of acis = {}", entry.getDN(), acis.size());
+            out.println(entry.getDN() + ": # of acis = " + acis.size());
+            int counter = 0;
+            for (String value : acis.getValues())
             {
-              ldapResult = ConnectionHandler.getDestinationConnection().modify(
-                modifyRequest);
-              if (ldapResult.getResultCode() != ResultCode.SUCCESS)
+              ++counter;
+              value = value.trim();
+              valueList.add(value);
+
+              Modification modification = new Modification(ModificationType.REPLACE,
+                "aci", valueList.toArray(new String[0]));
+
+              ModifyRequest modifyRequest = new ModifyRequest(entry.getDN(),
+                modification);
+
+              LDAPResult ldapResult = null;
+
+              try
               {
-                out.println( counter + " FR>  " + value);
-                out.println(ldapResult);
-                LOGGER.error("{} FR> {}\n{}", counter, value, ldapResult);
+                ldapResult = ConnectionHandler.getDestinationConnection().modify(
+                  modifyRequest);
+                if (ldapResult.getResultCode() != ResultCode.SUCCESS)
+                {
+                  out.println( counter + " FR>  " + value);
+                  out.println(ldapResult);
+                  LOGGER.error("{} FR> {}\n{}", counter, value, ldapResult);
+                }
+                else
+                {
+                  out.println(counter + " S> " + value);
+                  LOGGER.debug("{} S> {}", counter, value);
+                }
               }
-              else
+              catch (Throwable e)
               {
-                out.println(counter + " S> " + value);
-                LOGGER.debug("{} S> {}", counter, value);
+                out.println(counter + " FE>  " + value);
+                out.println("   - " + e.getMessage());
+                LOGGER.error("{} FE> {}\n{}", counter, value, e.getMessage());
+                valueList.remove(value);
               }
-            }
-            catch (Throwable e)
-            {
-              out.println(counter + " FE>  " + value);
-              out.println("   - " + e.getMessage());
-              LOGGER.error("{} FE> {}\n{}", counter, value, e.getMessage());
-              valueList.remove(value);
             }
           }
-        }
-        else
-        {
-          LOGGER.info("no ACIs found on source, delete ACI attribute on target");
-          out.println("no ACIs found");
-          ConnectionHandler.getDestinationConnection().modify(
-            entry.getDN(), new Modification(ModificationType.REPLACE, "aci"));
+          else
+          {
+            SearchResultEntry destinationEntry = 
+              ConnectionHandler.getDestinationConnection().getEntry(
+                entry.getDN(), new String[]{"aci"});
+
+            if(destinationEntry != null && destinationEntry.hasAttribute("aci"))
+            {
+              LOGGER.info("{}: no ACIs found on source, delete ACI attribute on target", entry.getDN());
+              out.println(entry.getDN() + ": no ACIs found on source, delete ACI attribute on target");
+
+              ConnectionHandler.getDestinationConnection().modify(
+                entry.getDN(), new Modification(ModificationType.DELETE, "aci"));
+            }
+          }
         }
       }
     }
