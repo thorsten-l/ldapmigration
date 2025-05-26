@@ -51,7 +51,7 @@ public class SyncLdap
 
     // ---------------
     SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
-      "|(objectClass=*)(objectClass=ldapSubEntry)", "dn");
+      "(|(objectClass=*)(objectClass=ldapSubEntry))", "dn");
 
     LOGGER.info("Start source search.");
 

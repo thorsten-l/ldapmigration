@@ -60,7 +60,7 @@ public class SyncLdapInitial
     destinationIgnoredEntrySet.add(new LdapEntry(MatchType.equals, baseDn, null));
 
     SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
-      "|(objectClass=*)(objectClass=ldapSubEntry)", "dn");
+      "(|(objectClass=*)(objectClass=ldapSubEntry))", "dn");
 
     LOGGER.info("Start destination search.");
 
@@ -142,7 +142,7 @@ public class SyncLdapInitial
     }
 
     SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
-      "|(objectClass=*)(objectClass=ldapSubEntry)", "*", "nsRoleDN");
+      "(|(objectClass=*)(objectClass=ldapSubEntry))", "*", "nsRoleDN");
 
     LOGGER.info("Start source search.");
 

@@ -96,7 +96,7 @@ public class SyncBaseDn
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
     SearchRequest searchRequest = new SearchRequest(baseDn,
-      SearchScope.SUB, "objectClass=*", "aci");
+      SearchScope.SUB, "(objectClass=*)", "aci");
 
     SearchResult searchResult = ConnectionHandler.getSourceConnection().search(
       searchRequest);
