@@ -15,6 +15,7 @@
  */
 package l9g.app.ldapmigration;
 
+import com.unboundid.asn1.ASN1GeneralizedTime;
 import com.unboundid.ldap.sdk.Attribute;
 import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPResult;
@@ -95,8 +96,11 @@ public class SyncBaseDn
 
     String baseDn = Ldapmigration.getConfig().getBaseDn();
 
-    SearchRequest searchRequest = new SearchRequest(baseDn,
-      SearchScope.SUB, "(objectClass=*)", "aci");
+    ASN1GeneralizedTime lastSyncTimestamp = SyncTimestampUtil.get();
+
+    SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
+      "(&(objectClass=*)(modifyTimestamp>="
+      + lastSyncTimestamp.getStringRepresentation() + "))", "aci");
 
     SearchResult searchResult = ConnectionHandler.getSourceConnection().search(
       searchRequest);
