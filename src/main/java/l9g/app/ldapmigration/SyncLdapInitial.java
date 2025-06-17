@@ -114,107 +114,103 @@ public class SyncLdapInitial
       - startTimestamp) / 1000.0);
   }
 
-  public static void synchronizeAllEntries()
+  public static void synchronizeAllEntries(ASN1GeneralizedTime soniaSyncTimestamp)
   {
     LOGGER.info("synchronizeAllEntries()");
-    ASN1GeneralizedTime soniaSyncTimestamp = new ASN1GeneralizedTime();
     double startTimestamp = System.currentTimeMillis();
     double endTimestamp = 0;
     String currentEntryDn = null;
 
     try
     {
-    String baseDn = Ldapmigration.getConfig().getBaseDn();
+      String baseDn = Ldapmigration.getConfig().getBaseDn();
 
-    final HashSet<LdapEntry> sourceIgnoredEntrySet = new HashSet<>();
-    final HashSet<LdapEntry> destinationIgnoredEntrySet = new HashSet<>();
+      final HashSet<LdapEntry> sourceIgnoredEntrySet = new HashSet<>();
+      final HashSet<LdapEntry> destinationIgnoredEntrySet = new HashSet<>();
 
-    for (l9g.app.ldapmigration.config.LdapEntry entry
-      : Ldapmigration.getConfig().getSourceIgnoreEntries())
-    {
-      sourceIgnoredEntrySet.add(entry);
-    }
-
-    for (l9g.app.ldapmigration.config.LdapEntry entry
-      : Ldapmigration.getConfig().getDestinationIgnoreEntries())
-    {
-      destinationIgnoredEntrySet.add(entry);
-    }
-
-    SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
-      "(|(objectClass=*)(objectClass=ldapSubEntry))", "*", "nsRoleDN");
-
-    LOGGER.info("Start source search.");
-
-    SearchResult sourceSearchResult = ConnectionHandler.getSourceConnection().
-      search(searchRequest);
-
-    int sourceEntries = sourceSearchResult.getEntryCount();
-
-    ArrayList<Entry> sourceEntryList = new ArrayList<>();
-
-    if (sourceEntries > 0)
-    {
-      LOGGER.debug("build hashset and list from source DNs");
-
-      for (Entry entry : sourceSearchResult.getSearchEntries())
+      for (l9g.app.ldapmigration.config.LdapEntry entry
+        : Ldapmigration.getConfig().getSourceIgnoreEntries())
       {
-        String entryDn = DN.normalize(entry.getDN()).toLowerCase();
+        sourceIgnoredEntrySet.add(entry);
+      }
 
-        if (
-          !sourceIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(entryDn))
-          && !destinationIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(entryDn))
-          && !baseDn.equals(entryDn))
+      for (l9g.app.ldapmigration.config.LdapEntry entry
+        : Ldapmigration.getConfig().getDestinationIgnoreEntries())
+      {
+        destinationIgnoredEntrySet.add(entry);
+      }
+
+      SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
+        "(|(objectClass=*)(objectClass=ldapSubEntry))", "*", "nsRoleDN");
+
+      LOGGER.info("Start source search.");
+
+      SearchResult sourceSearchResult = ConnectionHandler.getSourceConnection().
+        search(searchRequest);
+
+      int sourceEntries = sourceSearchResult.getEntryCount();
+
+      ArrayList<Entry> sourceEntryList = new ArrayList<>();
+
+      if (sourceEntries > 0)
+      {
+        LOGGER.debug("build hashset and list from source DNs");
+
+        for (Entry entry : sourceSearchResult.getSearchEntries())
         {
-          sourceEntryList.add(entry);
+          String entryDn = DN.normalize(entry.getDN()).toLowerCase();
+
+          if (
+            !sourceIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(entryDn))
+            && !destinationIgnoredEntrySet.stream().anyMatch(ignoredEntry -> ignoredEntry.matchesDn(entryDn))
+            && !baseDn.equals(entryDn))
+          {
+            sourceEntryList.add(entry);
+          }
         }
       }
-    }
-    else
-    {
-      LOGGER.error("No entries found");
-      System.exit(0);
-    }
-
-    endTimestamp = System.currentTimeMillis();
-
-    LOGGER.info("# entries in source ldap = {} read in {}s", sourceEntries,
-      (endTimestamp - startTimestamp) / 1000.0);
-
-    startTimestamp = endTimestamp;
-
-    LDAPConnection destinationConnection = ConnectionHandler.
-      getDestinationConnection();
-
-    int addCounter = 0;
-    double intervalTimestamp = System.currentTimeMillis();
-
-    for (Entry entry : sourceEntryList)
-    {
-      if (addCounter % 1000 == 0)
+      else
       {
-        LOGGER.info("{}/{} read in {}s", addCounter, sourceEntryList.size(),
-          (System.currentTimeMillis() - intervalTimestamp) / 1000.0);
-        
-        intervalTimestamp = System.currentTimeMillis();
-      }
-
-      addCounter++;
-
-      currentEntryDn = entry.getDN();
-      
-      LOGGER.debug("ADDING {}", currentEntryDn );
-    
-      LDAPResult addResult = destinationConnection.add(entry);
-      if (addResult.getResultCode() != ResultCode.SUCCESS)
-      {
-        LOGGER.error("ERROR adding entry {}", entry.getDN());
+        LOGGER.error("No entries found");
         System.exit(0);
       }
-    }
 
-    SyncTimestampUtil.set(soniaSyncTimestamp);
-    
+      endTimestamp = System.currentTimeMillis();
+
+      LOGGER.info("# entries in source ldap = {} read in {}s", sourceEntries,
+        (endTimestamp - startTimestamp) / 1000.0);
+
+      startTimestamp = endTimestamp;
+
+      LDAPConnection destinationConnection = ConnectionHandler.
+        getDestinationConnection();
+
+      int addCounter = 0;
+      double intervalTimestamp = System.currentTimeMillis();
+
+      for (Entry entry : sourceEntryList)
+      {
+        if (addCounter % 1000 == 0)
+        {
+          LOGGER.info("{}/{} read in {}s", addCounter, sourceEntryList.size(),
+            (System.currentTimeMillis() - intervalTimestamp) / 1000.0);
+
+          intervalTimestamp = System.currentTimeMillis();
+        }
+
+        addCounter++;
+
+        currentEntryDn = entry.getDN();
+
+        LOGGER.debug("ADDING {}", currentEntryDn );
+
+        LDAPResult addResult = destinationConnection.add(entry);
+        if (addResult.getResultCode() != ResultCode.SUCCESS)
+        {
+          LOGGER.error("ERROR adding entry {}", entry.getDN());
+          System.exit(0);
+        }
+      }
     }
     catch( Throwable t )
     {

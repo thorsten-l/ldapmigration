@@ -41,13 +41,11 @@ public class SyncLdap
   private final static Logger LOGGER = LoggerFactory.getLogger(SyncLdap.class.
     getName());
 
-  public static void synchronizeGeneralAttributesInclusiveNsRoleDN() throws
+  public static void synchronizeGeneralAttributesInclusiveNsRoleDN(ASN1GeneralizedTime soniaSyncTimestamp) throws
     Throwable
   {
     LOGGER.info("synchronizeGeneralAttributesInclusiveNsRoleDN()");
     String baseDn = Ldapmigration.getConfig().getBaseDn();
-
-    ASN1GeneralizedTime soniaSyncTimestamp = new ASN1GeneralizedTime();
 
     // ---------------
     SearchRequest searchRequest = new SearchRequest(baseDn, SearchScope.SUB,
@@ -248,9 +246,6 @@ public class SyncLdap
         }
       }
     }
-
-    //////////////////////////////////////////////////  
-    SyncTimestampUtil.set(soniaSyncTimestamp);
 
     LOGGER.info("synchronizeGeneralAttributesInclusiveNsRoleDN() - done");
   }

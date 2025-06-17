@@ -15,6 +15,7 @@
  */
 package l9g.app.ldapmigration;
 
+import com.unboundid.asn1.ASN1GeneralizedTime;
 import jakarta.xml.bind.JAXB;
 import java.io.File;
 import java.io.FileReader;
@@ -105,13 +106,16 @@ public class Ldapmigration
     }
 
     readConfiguration();
+    
+    ASN1GeneralizedTime soniaSyncTimestamp = new ASN1GeneralizedTime();
 
     if (initialSync)
     {
       SyncTimestampUtil.add();
+
       SyncBaseDn.synchronizeGeneralAttributes();
       SyncLdapInitial.deleteAllDestinationEntries();
-      SyncLdapInitial.synchronizeAllEntries();
+      SyncLdapInitial.synchronizeAllEntries(soniaSyncTimestamp);
       SyncBaseDn.synchronizeACIs();
     }
     else
@@ -127,7 +131,7 @@ public class Ldapmigration
           SyncBaseDn.synchronizeGeneralAttributes();
         }
 
-        SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN();
+        SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN(soniaSyncTimestamp);
 
         if (updateBaseDn)
         {
@@ -135,5 +139,7 @@ public class Ldapmigration
         }
       }
     }
+    
+    SyncTimestampUtil.set(soniaSyncTimestamp);
   }
 }
