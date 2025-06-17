@@ -41,7 +41,7 @@ public class SyncLdap
   private final static Logger LOGGER = LoggerFactory.getLogger(SyncLdap.class.
     getName());
 
-  public static void synchronizeGeneralAttributesInclusiveNsRoleDN(ASN1GeneralizedTime soniaSyncTimestamp) throws
+  public static void synchronizeGeneralAttributesInclusiveNsRoleDN() throws
     Throwable
   {
     LOGGER.info("synchronizeGeneralAttributesInclusiveNsRoleDN()");

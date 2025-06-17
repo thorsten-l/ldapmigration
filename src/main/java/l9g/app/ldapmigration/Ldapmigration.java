@@ -115,7 +115,7 @@ public class Ldapmigration
 
       SyncBaseDn.synchronizeGeneralAttributes();
       SyncLdapInitial.deleteAllDestinationEntries();
-      SyncLdapInitial.synchronizeAllEntries(soniaSyncTimestamp);
+      SyncLdapInitial.synchronizeAllEntries();
       SyncBaseDn.synchronizeACIs();
     }
     else
@@ -131,7 +131,7 @@ public class Ldapmigration
           SyncBaseDn.synchronizeGeneralAttributes();
         }
 
-        SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN(soniaSyncTimestamp);
+        SyncLdap.synchronizeGeneralAttributesInclusiveNsRoleDN();
 
         if (updateBaseDn)
         {

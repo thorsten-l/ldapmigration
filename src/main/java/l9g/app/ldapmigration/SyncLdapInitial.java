@@ -114,7 +114,7 @@ public class SyncLdapInitial
       - startTimestamp) / 1000.0);
   }
 
-  public static void synchronizeAllEntries(ASN1GeneralizedTime soniaSyncTimestamp)
+  public static void synchronizeAllEntries()
   {
     LOGGER.info("synchronizeAllEntries()");
     double startTimestamp = System.currentTimeMillis();
